@@ -8,7 +8,7 @@ import { RootState } from '@/app/store';
 import { useSelector } from 'react-redux';
 
 
-export function TableOfContentsFloating() {
+export function TableOfContentsFloating({ onToggle }: { onToggle: () => void }) {
   const [active, setActive] = useState(0);
   const [links, setLinks] = useState<Link[]>([]);  
 
@@ -52,29 +52,33 @@ export function TableOfContentsFloating() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [links]);
+
+  
  
 
   const items = links.map((item, index) => {
     const status = headerStatus.find(status => status.label === item.label)?.status;  
     return (
-      <Link key={item.label} href={item.link} style={{ textDecoration: 'none'}}>
+      <Link key={item.label} href={item.link} style={{ textDecoration: 'none'}} onClick={(e) => {
+        e.preventDefault();
+        onToggle();
+        const element = document.querySelector(item.link);
+        if (element) {
+          window.scrollTo({
+            top: element.getBoundingClientRect().top + window.scrollY - 60, // Ajusta este valor al desplazamiento que desees
+            behavior: 'smooth'
+          });
+        }
+      }}>
         
         <Box className={cx(classes.link, { [classes.linkActive]: active === index })} style={{ paddingLeft: `calc(${item.order} * var(--mantine-spacing-md))` }} >
-          {item.label.length > 30 ? (
-            <Tooltip label={item.label} position="right">
-              <Box style={{ display: 'flex', alignItems: 'center' }}>
-                {/* {item.order === 1 ? (status === 'done' ? <IconCircleCheck color="green" size={12} style={{ marginRight: '8px' }} /> : <IconCircleDashed color="lightgray" size={12} style={{ marginRight: '8px' }} />) : ''} */}
-                {/* {item.order > 1 ? '. ' : ''} */}
-                {item.label.substring(0, 20)}...
-              </Box>
-            </Tooltip>
-          ) : (
-            <Box style={{ display: 'flex', alignItems: 'center', fontWeight: item.order === 1 ? 500 : 'normal' }}>
+        <Box style={{ display: 'flex', alignItems: 'center', fontWeight: item.order === 1 ? 500 : 'normal' }}>
               {/* {item.order === 1 ? (status === 'done' ? <IconCircleCheck color="green" size={12} style={{ marginRight: '8px' }} /> : <IconCircleDashed color="lightgray" size={12} style={{ marginRight: '8px' }} />) : ''} */}
-              {/* {item.order > 1 ? '. ' : ''} */}
+              {item.order > 1 ? '● ' : ''}
               {item.label}
             </Box>
-          )}
+          
+          
         </Box>
       </Link>
     );
@@ -89,10 +93,11 @@ export function TableOfContentsFloating() {
       <div className={classes.links}>
         <div
           className={classes.indicator}
-          style={{ transform: `translateY(calc(${active} * var(--link-height) + var(--indicator-offset)))` }}
+          // style={{ transform: `translateY(calc(${active} * var(--link-height) + var(--indicator-offset)))` }}
         />
         {items}
       </div>
     </div>
   );
 }
+

@@ -12,7 +12,7 @@ import { Text } from '@mantine/core';
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../../../store'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { reduxUpdateSelectItem } from '@/app/features/selectItem/selectItem';
 import { reduxChangeSidebar } from '@/app/features/sidebar/sidebar';
 import { UserButton } from '../../UserButton/UserButton';
@@ -86,14 +86,20 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
     }
   }, [linksMockdata]);
 
-
   return (
-    <nav className={classes.navbar} >      
+    <nav className={classes.navbar} >
       <div className={classes.footer}>
-        <UserButton 
-          name={currentsession?.user.user_metadata.name}
-          email={currentsession?.user.email}
-          avatar={currentsession?.user.user_metadata.avatar_url} />
+        <UnstyledButton className={classes.user}
+          onClick={() => {
+            onToggle()
+            router.push('/home/pages/profile')
+          }}
+        >
+          <UserButton
+            name={currentsession?.user.user_metadata.name}
+            email={currentsession?.user.email}
+            avatar={currentsession?.user.user_metadata.avatar_url} />
+        </UnstyledButton>
       </div>
       <div className={classes.wrapper}>
         <div className={classes.aside}>

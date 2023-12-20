@@ -6,15 +6,22 @@
 }
 
 .link {
-  display: block;
-  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding-right: 10px;
+  /* display: block;
+  text-decoration: none; */
   color: var(--mantine-color-text);
   line-height: var(--link-height);
   font-size: var(--mantine-font-size-xs);
-  height: var(--link-height);
+  /* height: var(--link-height); */
   border-top-right-radius: var(--mantine-radius-sm);
   border-bottom-right-radius: var(--mantine-radius-sm);
-  border-left: rem(2px) solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-4));
+  /* border-left: rem(2px) solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-4)); */
 
   @mixin hover {
     background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
@@ -26,6 +33,7 @@
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
 }
 
+/* 
 .indicator {
   transition: transform 150ms ease;
   border: rem(2px) solid light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
@@ -35,4 +43,4 @@
   border-radius: var(--indicator-size);
   position: absolute;
   left: calc(var(--indicator-size) / -2 + rem(1));
-}
+} */

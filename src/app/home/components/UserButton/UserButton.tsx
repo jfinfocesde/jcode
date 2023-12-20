@@ -1,6 +1,5 @@
-import { UnstyledButton, Group, Avatar, Text, rem } from '@mantine/core';
+import {  Group, Avatar, Text, rem } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
-import classes from './UserButton.module.css';
 import { useRouter } from 'next/navigation'
 
 interface Props {
@@ -14,11 +13,11 @@ export function UserButton({ name, email, avatar }: Props) {
   const router = useRouter()
 
   return (
-    <UnstyledButton className={classes.user}
-      onClick={() => {
-        router.push('/home/pages/profile')
-      }}
-    >
+    // <UnstyledButton className={classes.user}
+    //   onClick={() => {
+    //     router.push('/home/pages/profile')
+    //   }}
+    // >
       <Group>
         <Avatar
           src={avatar}
@@ -34,6 +33,6 @@ export function UserButton({ name, email, avatar }: Props) {
         </div>
         <IconChevronRight style={{ width: rem(14), height: rem(14) }} stroke={1.5} />
       </Group>
-    </UnstyledButton>
+    // </UnstyledButton>
   );
 }

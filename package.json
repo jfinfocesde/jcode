@@ -20,7 +20,7 @@
     "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/auth-ui-react": "^0.4.6",
     "@supabase/auth-ui-shared": "^0.1.8",
-    "@supabase/supabase-js": "^2.39.0",
+    "@supabase/supabase-js": "^2.39.1",
     "@tabler/icons-react": "^2.44.0",
     "@types/mdx": "^2.0.10",
     "next": "14.0.4",

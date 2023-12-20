@@ -3,12 +3,12 @@ import { TableOfContentsFloating } from '../TableOfContentsFloating/TableOfConte
 import { RootState } from '@/app/store';
 import { useSelector } from 'react-redux';
 
-export default function Sidebar() {
+export default function Sidebar({ onToggle }: { onToggle: () => void }) {
   const selectSidebar = useSelector((state: RootState) => state.sidebar.status)
   return (
-    <ScrollArea w={300} scrollbars="y">
-      <Box h="100%" p={'sm'}>
-        {selectSidebar === 'courses' && <TableOfContentsFloating />}
+    <ScrollArea w={'auto'} scrollbars="y">
+      <Box h="100%" >
+        {selectSidebar === 'courses' && <TableOfContentsFloating onToggle={onToggle}/>}
         {selectSidebar === 'home' && <h1>Prueba</h1>}
       </Box>
     </ScrollArea>

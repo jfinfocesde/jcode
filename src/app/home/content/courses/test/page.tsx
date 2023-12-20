@@ -9,6 +9,8 @@ import { RootState } from "@/app/store";
 import { FabButton } from "@/app/home/components/FabButton/FabButton";
 import { reduxUpdateSelectItem } from "@/app/features/selectItem/selectItem";
 import { HeaderMegaMenu } from "@/app/home/components/HeaderMegaMenu/HeaderMegaMenu/HeaderMegaMenu";
+import { useRouter } from "next/navigation";
+import { recoverSession } from "@/app/utilities/recoverSession";
 
 
 /** @type {import('mdx/types.js').MDXComponents} */
@@ -19,6 +21,8 @@ const components = {
 }
 
 export default function Page() {
+    recoverSession()
+    
     const selectPage = useSelector((state: RootState) => state.selectItem.status)
     const dispatch = useDispatch()
     useEffect(() => {
