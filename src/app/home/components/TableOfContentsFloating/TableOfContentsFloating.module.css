@@ -1,5 +1,5 @@
 .root {
-  --link-height: rem(38px);
+  --link-height: rem(25px);
   --indicator-size: rem(10px);
   --indicator-offset: calc((var(--link-height) - var(--indicator-size)) / 2);
   position: relative;
@@ -10,7 +10,7 @@
   text-decoration: none;
   color: var(--mantine-color-text);
   line-height: var(--link-height);
-  font-size: var(--mantine-font-size-sm);
+  font-size: var(--mantine-font-size-xs);
   height: var(--link-height);
   border-top-right-radius: var(--mantine-radius-sm);
   border-bottom-right-radius: var(--mantine-radius-sm);

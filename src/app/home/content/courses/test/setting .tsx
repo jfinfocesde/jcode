@@ -9,8 +9,8 @@ export const PAGES = [
 ]
 
 export const MENU: typeLink[] = [
-    { label: "home", path: "/home" },
-    { label: "home2", path: "/home" },
-    { label: "home3", path: "/home" }
+    { label: "Introducción", path: "/home" },
+    { label: "Sesión 1", path: "/home" },
+    { label: "Sesión 2", path: "/home" }
 ]
 

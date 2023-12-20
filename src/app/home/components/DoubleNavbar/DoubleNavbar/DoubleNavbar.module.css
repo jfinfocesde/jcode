@@ -73,15 +73,15 @@
 .link {
   display: block;
   text-decoration: none;
-  border-top-right-radius: var(--mantine-radius-md);
-  border-bottom-right-radius: var(--mantine-radius-md);
+  border-top-right-radius: var(--mantine-radius-xs);
+  border-bottom-right-radius: var(--mantine-radius-xs);
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
   padding: 0 var(--mantine-spacing-md);
   font-size: var(--mantine-font-size-sm);
-  margin-right: var(--mantine-spacing-md);
+  margin-right: 0;
   font-weight: 500;
-  height: rem(44px);
-  line-height: rem(44px);
+  height: rem(40px);
+  line-height: rem(40px);
 
   &:hover {
     background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-5));
@@ -91,9 +91,11 @@
   &[data-active] {
     &,
     &:hover {
-      border-left-color: var(--mantine-color-blue-filled);
-      background-color: var(--mantine-color-blue-filled);
+      border-left-color: var(--mantine-color-dark-4);
+      background-color: rgb(67, 174, 228);
       color: var(--mantine-color-white);
     }
   }
 }
+
+

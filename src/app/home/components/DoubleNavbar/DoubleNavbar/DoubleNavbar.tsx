@@ -12,7 +12,7 @@ import { Text } from '@mantine/core';
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../../../store'
-import {  useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { reduxUpdateSelectItem } from '@/app/features/selectItem/selectItem';
 import { reduxChangeSidebar } from '@/app/features/sidebar/sidebar';
 import { UserButton } from '../../UserButton/UserButton';
@@ -25,7 +25,7 @@ const mainLinksMockdata = [
 ];
 
 
-export function DoubleNavbar() {
+export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
   const [active, setActive] = useState('Home');
   const [activeLink, setActiveLink] = useState('Home');
   const router = useRouter()
@@ -45,12 +45,13 @@ export function DoubleNavbar() {
       <UnstyledButton
         onClick={() => {
           try {
+            onToggle()
             dispatch(reduxChangeSidebar(link.sisdebar))
             setActive(link.label)
             router.push(link.route)
           } catch (error) {
-            
-          }         
+
+          }
         }}
         className={classes.mainLink}
         data-active={link.label === active || undefined}
@@ -59,26 +60,27 @@ export function DoubleNavbar() {
       </UnstyledButton>
     </Tooltip>
   ));
-    
 
-  const links = linksMockdata.map((link, index) => (    
+
+  const links = linksMockdata.map((link, index) => (
     <Link passHref
       className={classes.link}
       data-active={activeLink === link.label || undefined}
       href={link.path}
       onClick={async (event) => {
         event.preventDefault();
+        onToggle()
         dispatch(reduxUpdateSelectItem(index))
         setActiveLink(link.label);
       }}
       key={link.label}
     >
       {link.label}
-    </Link>    
+    </Link>
   ));
 
 
-  useEffect(() => {    
+  useEffect(() => {
     if (linksMockdata.length > 0) {
       setActiveLink(linksMockdata[0].label);
     }
@@ -86,7 +88,13 @@ export function DoubleNavbar() {
 
 
   return (
-    <nav className={classes.navbar}>
+    <nav className={classes.navbar} >      
+      <div className={classes.footer}>
+        <UserButton 
+          name={currentsession?.user.user_metadata.name}
+          email={currentsession?.user.email}
+          avatar={currentsession?.user.user_metadata.avatar_url} />
+      </div>
       <div className={classes.wrapper}>
         <div className={classes.aside}>
           {mainLinks}
@@ -106,6 +114,7 @@ export function DoubleNavbar() {
             </form>
           </Tooltip>
         </div>
+
         <div className={classes.main}>
           <Center maw={400} h={40} bg="var(--mantine-color-gray-light)">
             <Text size="lg"> {active}</Text>
@@ -113,12 +122,7 @@ export function DoubleNavbar() {
           {links}
         </div>
       </div>
-      <div className={classes.footer}>
-        <UserButton
-          name={currentsession?.user.user_metadata.name}
-          email={currentsession?.user.email}
-          avatar={currentsession?.user.user_metadata.avatar_url} />
-      </div>
+
     </nav>
   );
 }

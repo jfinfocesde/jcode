@@ -7,6 +7,7 @@ import { MantineLogo } from "@mantinex/mantine-logo";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { Provider } from 'react-redux'
 import { store } from "../store";
+import Logo from "./components/Logo/Logo";
 
 export default function HomeLayout({
     children,
@@ -28,7 +29,8 @@ export default function HomeLayout({
                         <Group justify="space-between" h="100%">
                             <Group h="100%" px="md">
                                 <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-                                <MantineLogo size={30} />
+                                <Logo/>
+                                {/* <MantineLogo size={30} /> */}
                             </Group>
                             <Group visibleFrom="sm" m="sm">
                                 <ActionToggle />
@@ -36,7 +38,7 @@ export default function HomeLayout({
                         </Group>
                     </AppShell.Header>
                     <AppShell.Navbar >
-                        <DoubleNavbar />
+                        <DoubleNavbar onToggle={toggle} />
                     </AppShell.Navbar>
                     <AppShell.Main>
                         {children}

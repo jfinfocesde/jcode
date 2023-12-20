@@ -63,15 +63,15 @@ export function TableOfContentsFloating() {
           {item.label.length > 30 ? (
             <Tooltip label={item.label} position="right">
               <Box style={{ display: 'flex', alignItems: 'center' }}>
-                {item.order === 1 ? (status === 'done' ? <IconCircleCheck color="green" size={16} style={{ marginRight: '8px' }} /> : <IconCircleDashed color="lightgray" size={16} style={{ marginRight: '8px' }} />) : ''}
-                {item.order > 1 ? '• ' : ''}
+                {/* {item.order === 1 ? (status === 'done' ? <IconCircleCheck color="green" size={12} style={{ marginRight: '8px' }} /> : <IconCircleDashed color="lightgray" size={12} style={{ marginRight: '8px' }} />) : ''} */}
+                {/* {item.order > 1 ? '. ' : ''} */}
                 {item.label.substring(0, 20)}...
               </Box>
             </Tooltip>
           ) : (
             <Box style={{ display: 'flex', alignItems: 'center', fontWeight: item.order === 1 ? 500 : 'normal' }}>
-              {item.order === 1 ? (status === 'done' ? <IconCircleCheck color="green" size={16} style={{ marginRight: '8px' }} /> : <IconCircleDashed color="lightgray" size={16} style={{ marginRight: '8px' }} />) : ''}
-              {item.order > 1 ? '• ' : ''}
+              {/* {item.order === 1 ? (status === 'done' ? <IconCircleCheck color="green" size={12} style={{ marginRight: '8px' }} /> : <IconCircleDashed color="lightgray" size={12} style={{ marginRight: '8px' }} />) : ''} */}
+              {/* {item.order > 1 ? '. ' : ''} */}
               {item.label}
             </Box>
           )}

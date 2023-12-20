@@ -8,6 +8,7 @@ import { reduxUpdateLinkList } from "@/app/features/links/links";
 import { RootState } from "@/app/store";
 import { FabButton } from "@/app/home/components/FabButton/FabButton";
 import { reduxUpdateSelectItem } from "@/app/features/selectItem/selectItem";
+import { HeaderMegaMenu } from "@/app/home/components/HeaderMegaMenu/HeaderMegaMenu/HeaderMegaMenu";
 
 
 /** @type {import('mdx/types.js').MDXComponents} */
@@ -27,9 +28,9 @@ export default function Page() {
     const page = PAGES[selectPage];
 
     return (
-        <MDXProvider components={components}>
+        <MDXProvider components={components}>            
             {page}
-            <FabButton />
+            {/* <FabButton /> */}
         </MDXProvider>
     );
 }
