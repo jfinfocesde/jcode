@@ -5,7 +5,12 @@ import { RootState } from "../store"
 export function recoverSession() {
     const router = useRouter()
     const currentsession = useSelector((state: RootState) => state.session.currentSession)
-    if(!currentsession){
-        router.push('/home')
-    }
+     if(!currentsession){
+        try {
+            router.push('/home')
+        } catch (error) {
+            
+        }        
+     }
+    
 }
