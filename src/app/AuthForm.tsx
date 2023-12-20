@@ -16,7 +16,8 @@ export default function AuthForm() {
       showLinks={false}
       onlyThirdPartyProviders={true}
       providers={['github','google']}
-      redirectTo="http://localhost:3000/api/auth/callback"
+      redirectTo="https://jcode-khaki.vercel.app/api/auth/callback"
+      // redirectTo="http://localhost:3000/api/auth/callback"
     />
   )
 }
