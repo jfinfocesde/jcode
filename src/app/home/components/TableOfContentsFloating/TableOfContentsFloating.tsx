@@ -65,7 +65,7 @@ export function TableOfContentsFloating({ onToggle }: { onToggle: () => void }) 
         const element = document.querySelector(item.link);
         if (element) {
           window.scrollTo({
-            top: element.getBoundingClientRect().top + window.scrollY - 60, // Ajusta este valor al desplazamiento que desees
+            top: element.getBoundingClientRect().top + window.scrollY - 110, // Ajusta este valor al desplazamiento que desees
             behavior: 'smooth'
           });
         }

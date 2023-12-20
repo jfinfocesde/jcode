@@ -21,7 +21,7 @@ export function FabButton() {
                 variant="filled"
                 color="blue"
                 onClick={scrollToTop}
-                style={{ position: 'fixed', top: '80px', right: '280px', zIndex: 200 }}
+                // style={{ position: 'fixed', top: '80px', right: '280px', zIndex: 200 }}
             >
                 <IconArrowBarUp size={12} />
             </ActionIcon>

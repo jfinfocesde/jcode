@@ -8,8 +8,10 @@ import { reduxUpdateLinkList } from "@/app/features/links/links";
 import { RootState } from "@/app/store";
 import { reduxUpdateSelectItem } from "@/app/features/selectItem/selectItem";
 import { recoverSession } from "@/app/utilities/recoverSession";
-
-
+import { Group, Paper } from "@mantine/core";
+import { FabButton } from "@/app/home/components/FabButton/FabButton";
+import { Text } from '@mantine/core';
+import { useViewportSize } from "@mantine/hooks";
 
 /** @type {import('mdx/types.js').MDXComponents} */
 const components = {
@@ -17,6 +19,9 @@ const components = {
         return <i {...props} />
     }
 }
+
+
+
 
 export default function Page() {
     recoverSession()
@@ -28,10 +33,28 @@ export default function Page() {
     }, [dispatch]);
     const page = PAGES[selectPage];
 
+
+
+    const { width } = useViewportSize();
+ 
+
+
     return (
-        <MDXProvider components={components}>            
-            {page}
-            {/* <FabButton /> */}
+        <MDXProvider components={components}>
+            <Paper m={-20} p={'xs'} bg="gray.2" w={{base:'100%', md:`${width - 560}px`}} style={{ position: 'fixed', zIndex: 1 }}>
+                {/* Tus elementos de navegación van aquí */}
+                <Group justify="space-between" h="100%">
+                    <Group>
+                        <Text size="sm">Python</Text>
+                    </Group>
+                    <Group justify="flex-end">
+                        <FabButton />
+                    </Group>
+                </Group>
+            </Paper>
+            <Paper pt={50}>
+                {page}
+            </Paper>          
         </MDXProvider>
     );
 }

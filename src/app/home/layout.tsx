@@ -1,9 +1,8 @@
 'use client'
 import { AppShell, Burger, Group } from "@mantine/core";
-import { useDisclosure, useHeadroom } from "@mantine/hooks";
+import { useDisclosure } from "@mantine/hooks";
 import { ActionToggle } from "./components/ActionToggle/ActionToggle";
 import { DoubleNavbar } from "./components/DoubleNavbar/DoubleNavbar/DoubleNavbar";
-import { MantineLogo } from "@mantinex/mantine-logo";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { Provider } from 'react-redux'
 import { store } from "../store";
@@ -13,12 +12,9 @@ export default function HomeLayout({
     children,
 }: {
     children: React.ReactNode
-}) {
-    // const [opened, { toggle }] = useDisclosure();
+}) {    
     const [navbarOpened, { toggle: toggleNavbar }] = useDisclosure();
     const [asideOpened, { toggle: toggleAside }] = useDisclosure();
-
-
 
     return (
         <Provider store={store}>
@@ -26,12 +22,10 @@ export default function HomeLayout({
                 header={{ height: 60 }}
                 navbar={{ width: 300, breakpoint: 'md', collapsed: { mobile: !navbarOpened } }}
                 padding="md"
-                aside={{ width: {base:250}, breakpoint: 'md', collapsed: { mobile: !asideOpened } }}
+                aside={{ width: 250, breakpoint: 'md', collapsed: { mobile: !asideOpened } }}
                 footer={{ height: 60 }}
             >
                 <AppShell.Header>
-
-
                     <Group justify="space-between" h="100%">
                         <Group h="100%" px="md">
                             <Burger opened={navbarOpened} onClick={toggleNavbar} hiddenFrom="md" size="sm" />
@@ -45,9 +39,6 @@ export default function HomeLayout({
                             <ActionToggle />
                         </Group>
                     </Group>
-
-
-
                 </AppShell.Header>
                 <AppShell.Navbar >
                     <DoubleNavbar onToggle={toggleNavbar} />
@@ -56,7 +47,7 @@ export default function HomeLayout({
                     {children}
                 </AppShell.Main>
                 <AppShell.Aside p={'sm'}>
-                    <Sidebar onToggle={toggleAside}/>
+                    <Sidebar onToggle={toggleAside} />
                 </AppShell.Aside>
                 <AppShell.Footer >
 
