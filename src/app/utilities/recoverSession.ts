@@ -7,7 +7,7 @@ export function recoverSession() {
     const currentsession = useSelector((state: RootState) => state.session.currentSession)
      if(!currentsession){
         try {
-            router.push('/home')
+            router.push('/')
         } catch (error) {
             
         }        
