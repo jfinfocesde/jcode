@@ -20,10 +20,10 @@ export default function HomeLayout({
     return (
         <Provider store={store}>
             <AppShell
-                header={{ height: 40 }}
-                navbar={{ width: 300, breakpoint: 'sm', collapsed: { mobile: !opened } }}
+                header={{ height: 60 }}
+                navbar={{ width: 300, breakpoint: 'md', collapsed: { mobile: !opened } }}
                 
-                aside={{ width: 250, breakpoint: 'sm', collapsed: { mobile: !asideOpened } }}
+                aside={{ width: 250, breakpoint: 'md', collapsed: { mobile: !asideOpened } }}
                 footer={{ height: 40 }}
             >
                 <AppShell.Header>
