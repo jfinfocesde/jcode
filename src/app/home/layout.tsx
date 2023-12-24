@@ -1,5 +1,5 @@
 'use client'
-import { AppShell, Burger, Group } from "@mantine/core";
+import { AppShell, Burger, Button, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { ActionToggle } from "./components/ActionToggle/ActionToggle";
 import { DoubleNavbar } from "./components/DoubleNavbar/DoubleNavbar/DoubleNavbar";
@@ -15,9 +15,11 @@ export default function HomeLayout({
 }) {    
    
     const [navbarOpened, { toggle: toggleNavbar }] = useDisclosure();
-    const [asideOpened, { toggle: toggleAside }] = useDisclosure();
-    console.log("recarga");
+    const [asideOpened, { toggle: toggleAside }] = useDisclosure();  
     
+    const handleToggle = () => {
+        toggleNavbar();
+      };
 
     return (
         <Provider store={store}>
@@ -31,6 +33,7 @@ export default function HomeLayout({
                 <AppShell.Header>
                     <Group justify="space-between" h="100%">
                         <Group h="100%" px="md">
+                            <Button onClick={handleToggle}>Toggle</Button>
                             <Burger opened={navbarOpened} onClick={(event)=>{
                                 event.preventDefault()
                                 toggleNavbar()
