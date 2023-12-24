@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { UnstyledButton, Tooltip, rem, Center, Group, useMantineTheme } from '@mantine/core';
+import { UnstyledButton, Tooltip, rem, Center} from '@mantine/core';
 import {
   IconHome2,
   IconSettings,
@@ -26,7 +26,7 @@ const mainLinksMockdata = [
 ];
 // { onToggle }: { onToggle: () => void }
 
-export function DoubleNavbar() {
+export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
   const [active, setActive] = useState('Home');
   const [activeLink, setActiveLink] = useState('Home');
   const router = useRouter()
@@ -34,7 +34,7 @@ export function DoubleNavbar() {
   const currentsession = useSelector((state: RootState) => state.session.currentSession)
   const linksMockdata = useSelector((state: RootState) => state.links.linkList)
   const dispatch = useDispatch()
-  const theme = useMantineTheme();
+
 
   const mainLinks = mainLinksMockdata.map((link) => (
     <Tooltip
@@ -112,7 +112,7 @@ export function DoubleNavbar() {
         </Text>
         {/* <Text size="sm"> {active}</Text>            */}
       </Center>
-      <div className={classes.footer}>
+      {/* <div className={classes.footer}>
         <UnstyledButton className={classes.user}
           onClick={() => {
             // onToggle()
@@ -124,7 +124,7 @@ export function DoubleNavbar() {
             email={currentsession?.user.email}
             avatar={currentsession?.user.user_metadata.avatar_url} />
         </UnstyledButton>
-      </div>
+      </div> */}
       <div className={classes.wrapper}>
         <div className={classes.aside}>
           {mainLinks}

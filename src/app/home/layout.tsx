@@ -51,8 +51,8 @@ export default function HomeLayout({
                     </Group>
                 </AppShell.Header>
                 <AppShell.Navbar >
-                    <h1>navbar</h1>
-                    {/* <DoubleNavbar /> */}
+                    {/* <h1>navbar</h1> */}
+                    <DoubleNavbar onToggle={toggleNavbar}/>
                 </AppShell.Navbar>
                 <AppShell.Main>
                     {children}
