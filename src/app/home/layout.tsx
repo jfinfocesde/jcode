@@ -20,27 +20,27 @@ export default function HomeLayout({
     return (
         <Provider store={store}>
             <AppShell
-                header={{ height: 60 }}
-                navbar={{ width: 300, breakpoint: 'md', collapsed: { mobile: !opened } }}
+                header={{ height: 40 }}
+                navbar={{ width: 300, breakpoint: 'sm', collapsed: { mobile: !opened } }}
                 
-                aside={{ width: 250, breakpoint: 'md', collapsed: { mobile: !asideOpened } }}
+                aside={{ width: 250, breakpoint: 'sm', collapsed: { mobile: !asideOpened } }}
                 footer={{ height: 40 }}
             >
                 <AppShell.Header>
                     <Group justify="space-between" h="100%">
                         <Group h="100%" px="md">
-                            <Burger opened={opened} onClick={toggle} hiddenFrom="md" size="sm" />
+                            <Burger opened={navbarOpened} onClick={toggleNavbar} hiddenFrom="sm" size="sm" />
                             <Logo />
                         </Group>
                         <Group h="100%" px="md">
                             {/* Resto de los elementos del grupo */}
                             <ActionToggle />
-                            <Burger opened={asideOpened} onClick={toggleAside} hiddenFrom="md" size="sm" />
+                            <Burger opened={asideOpened} onClick={toggleAside} hiddenFrom="sm" size="sm" />
                         </Group>                       
                     </Group>
                 </AppShell.Header>
                 <AppShell.Navbar >
-                    <DoubleNavbar onToggle={toggle} />
+                    <DoubleNavbar onToggle={toggleNavbar} />
                 </AppShell.Navbar>
                 <AppShell.Main>
                     {children}
