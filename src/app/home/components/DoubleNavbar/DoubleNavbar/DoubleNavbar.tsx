@@ -24,9 +24,9 @@ const mainLinksMockdata = [
   { icon: IconCertificate, label: 'Cursos', route: '/home/content/courses', sisdebar: "courses" },
   { icon: IconSettings, label: 'Settings', route: '/home/pages/settings', sisdebar: "courses" },
 ];
+// { onToggle }: { onToggle: () => void }
 
-
-export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
+export function DoubleNavbar() {
   const [active, setActive] = useState('Home');
   const [activeLink, setActiveLink] = useState('Home');
   const router = useRouter()
