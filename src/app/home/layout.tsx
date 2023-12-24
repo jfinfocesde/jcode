@@ -13,7 +13,7 @@ export default function HomeLayout({
 }: {
     children: React.ReactNode
 }) {    
-    const [opened, { toggle }] = useDisclosure();
+   
     const [navbarOpened, { toggle: toggleNavbar }] = useDisclosure();
     const [asideOpened, { toggle: toggleAside }] = useDisclosure();
 
@@ -21,21 +21,21 @@ export default function HomeLayout({
         <Provider store={store}>
             <AppShell
                 header={{ height: 40 }}
-                navbar={{ width: 300, breakpoint: 'sm', collapsed: { mobile: !navbarOpened } }}
+                navbar={{ width: 300, breakpoint: 'md', collapsed: { mobile: !navbarOpened } }}
                 
-                aside={{ width: 250, breakpoint: 'sm', collapsed: { mobile: !asideOpened } }}
+                aside={{ width: 250, breakpoint: 'md', collapsed: { mobile: !asideOpened } }}
                 footer={{ height: 40 }}
             >
                 <AppShell.Header>
                     <Group justify="space-between" h="100%">
                         <Group h="100%" px="sm">
-                            <Burger opened={navbarOpened} onClick={toggleNavbar} hiddenFrom="sm" size="sm" />
+                            <Burger opened={navbarOpened} onClick={toggleNavbar} hiddenFrom="md" size="sm" />
                             <Logo />
                         </Group>
                         <Group h="100%" px="sm">
                             {/* Resto de los elementos del grupo */}
                             <ActionToggle />
-                            <Burger opened={asideOpened} onClick={toggleAside} hiddenFrom="sm" size="sm" />
+                            <Burger opened={asideOpened} onClick={toggleAside} hiddenFrom="md" size="sm" />
                         </Group>                       
                     </Group>
                 </AppShell.Header>
