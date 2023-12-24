@@ -47,7 +47,7 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
       <UnstyledButton
         onClick={() => {
           try {
-            // onToggle()
+            onToggle()
             dispatch(reduxChangeSidebar(link.sisdebar))
             switch (link.label) {
               case 'Incio':
@@ -82,7 +82,7 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
       href={'#'}
       onClick={async (event) => {
         event.preventDefault();
-        // onToggle()
+        onToggle()
         dispatch(reduxUpdateSelectItem(index))
         setActiveLink(link);
       }}
