@@ -64,20 +64,20 @@ import Page1 from './content/post1.mdx'
 import Page2 from './content/post2.mdx'
 import Page3 from './content/post3.mdx'
 
-export const PAGES = [
-    <Page1 />,
-    <Page2 />,
-    <Page3 />
+const PAGES = [
+  <Page1 />,
+  <Page2 />,
+  <Page3 />
 ]
 
-export const MENU: typeLink = {
-    name: "test",
-    links: ["Introducción", "Sesión 1","Sesión 2"]
+const MENU: typeLink = {
+  name: "test",
+  links: ["Introducción", "Sesión 1", "Sesión 2"]
 }
 
 export default function page() {
   return (
-    <RenderMdx PAGES={PAGES} MENU={MENU}/>
+    <RenderMdx PAGES={PAGES} MENU={MENU} />
   )
 }
 

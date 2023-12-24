@@ -60,18 +60,19 @@ import { typeLink } from '@/app/features/links/links'
 import Intro from './content/intro.mdx'
 import Page1 from './content/sesion1.mdx'
 
-export const PAGES = [
+const PAGES: JSX.Element[] = [
     <Intro />,
-    <Page1 />,
+    <Page1 />
 ]
 
-export const MENU: typeLink = {
+const MENU: typeLink = {
     name: "Introducción a la Programación",
     links: ["Introducción", "Sesión 1"]
 }
 
 export default function page() {
   return (
+   
     <RenderMdx PAGES={PAGES} MENU={MENU}/>
   )
 }
