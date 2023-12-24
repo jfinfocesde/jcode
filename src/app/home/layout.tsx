@@ -17,9 +17,9 @@ export default function HomeLayout({
     const [navbarOpened, { toggle: toggleNavbar }] = useDisclosure();
     const [asideOpened, { toggle: toggleAside }] = useDisclosure();  
     
-    const handleToggle = () => {
-        toggleNavbar();
-      };
+    // const handleToggle = () => {
+    //     toggleNavbar();
+    //   };
 
     return (
         <Provider store={store}>
@@ -33,7 +33,7 @@ export default function HomeLayout({
                 <AppShell.Header>
                     <Group justify="space-between" h="100%">
                         <Group h="100%" px="md">
-                            <Button onClick={handleToggle}>Toggle</Button>
+                            {/* <Button onClick={handleToggle}>Toggle</Button> */}
                             <Burger opened={navbarOpened} onClick={(event)=>{
                                 event.preventDefault()
                                 toggleNavbar()
@@ -58,8 +58,8 @@ export default function HomeLayout({
                     {children}
                 </AppShell.Main>
                 <AppShell.Aside p={'sm'}>
-                <h1>aside</h1>
-                    {/* <Sidebar onToggle={toggleAside} /> */}
+             
+                    <Sidebar onToggle={toggleAside} />
                 </AppShell.Aside>
                 <AppShell.Footer >
 
