@@ -11,6 +11,7 @@ export default function Account({ session }: { session: Session | null }) {
 
   const dispatch = useDispatch()
   dispatch(reduxUpdateSession(session))
+console.log("");
 
 
 
@@ -23,7 +24,8 @@ export default function Account({ session }: { session: Session | null }) {
 
   return (
     <>
-      <HeroBullets />
+    <h1>Main</h1>
+      {/* <HeroBullets /> */}
     </>
   )
 }

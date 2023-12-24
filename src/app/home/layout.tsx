@@ -51,12 +51,14 @@ export default function HomeLayout({
                     </Group>
                 </AppShell.Header>
                 <AppShell.Navbar >
-                    <DoubleNavbar />
+                    <h1>navbar</h1>
+                    {/* <DoubleNavbar /> */}
                 </AppShell.Navbar>
                 <AppShell.Main>
                     {children}
                 </AppShell.Main>
                 <AppShell.Aside p={'sm'}>
+                <h1>aside</h1>
                     {/* <Sidebar onToggle={toggleAside} /> */}
                 </AppShell.Aside>
                 <AppShell.Footer >
