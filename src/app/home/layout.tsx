@@ -16,6 +16,8 @@ export default function HomeLayout({
    
     const [navbarOpened, { toggle: toggleNavbar }] = useDisclosure();
     const [asideOpened, { toggle: toggleAside }] = useDisclosure();
+    console.log("recarga");
+    
 
     return (
         <Provider store={store}>
@@ -46,13 +48,13 @@ export default function HomeLayout({
                     </Group>
                 </AppShell.Header>
                 <AppShell.Navbar >
-                    <DoubleNavbar onToggle={toggleNavbar} />
+                    {/* <DoubleNavbar onToggle={toggleNavbar} /> */}
                 </AppShell.Navbar>
                 <AppShell.Main>
                     {children}
                 </AppShell.Main>
                 <AppShell.Aside p={'sm'}>
-                    <Sidebar onToggle={toggleAside} />
+                    {/* <Sidebar onToggle={toggleAside} /> */}
                 </AppShell.Aside>
                 <AppShell.Footer >
 
