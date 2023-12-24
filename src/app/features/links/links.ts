@@ -1,21 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface typeLink {    
-    label: string;
-    path: string;
+    name:string;
+    links: string[];  
 }
 
 const temp: typeLink = {   
-    label: "home",
-    path: "/home"
+    name: "home",
+    links: ["/home"]
 }
 
 interface LinkState {
-    linkList: typeLink[];
+    linkList: typeLink;
 }
 
 const initialState: LinkState = {
-    linkList: [temp]
+    linkList: temp
 };
 
 export const reduxLinkSlice = createSlice({
@@ -23,7 +23,7 @@ export const reduxLinkSlice = createSlice({
     initialState,
 
     reducers: {       
-        reduxUpdateLinkList: (state, action: PayloadAction<typeLink[]>) => {
+        reduxUpdateLinkList: (state, action: PayloadAction<typeLink>) => {
             state.linkList = action.payload;
         }
     }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { UnstyledButton, Tooltip, rem, Center } from '@mantine/core';
+import { UnstyledButton, Tooltip, rem, Center, Group, useMantineTheme } from '@mantine/core';
 import {
   IconHome2,
   IconSettings,
@@ -12,16 +12,17 @@ import { Text } from '@mantine/core';
 import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../../../store'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { reduxUpdateSelectItem } from '@/app/features/selectItem/selectItem';
 import { reduxChangeSidebar } from '@/app/features/sidebar/sidebar';
 import { UserButton } from '../../UserButton/UserButton';
+import { reduxUpdateLinkList } from '@/app/features/links/links';
 
 
 const mainLinksMockdata = [
   { icon: IconHome2, label: 'Incio', route: '/home', sisdebar: "home" },
   { icon: IconCertificate, label: 'Cursos', route: '/home/content/courses', sisdebar: "courses" },
-  { icon: IconSettings, label: 'Settings', route: '/home/test2', sisdebar: "courses" },
+  { icon: IconSettings, label: 'Settings', route: '/home/pages/settings', sisdebar: "courses" },
 ];
 
 
@@ -33,6 +34,7 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
   const currentsession = useSelector((state: RootState) => state.session.currentSession)
   const linksMockdata = useSelector((state: RootState) => state.links.linkList)
   const dispatch = useDispatch()
+  const theme = useMantineTheme();
 
   const mainLinks = mainLinksMockdata.map((link) => (
     <Tooltip
@@ -47,6 +49,17 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
           try {
             onToggle()
             dispatch(reduxChangeSidebar(link.sisdebar))
+            switch (link.label) {
+              case 'Incio':
+                dispatch(reduxUpdateLinkList({ name: "Inicio", links: [""] }))
+                break;
+              case 'Cursos':
+                dispatch(reduxUpdateLinkList({ name: "Cursos", links: ["Java", "Python", "Javascript"] }))
+                break;
+              case 'Settings':
+                dispatch(reduxUpdateLinkList({ name: "Settings", links: [""] }))
+                break;
+            }
             setActive(link.label)
             router.push(link.route)
           } catch (error) {
@@ -62,32 +75,43 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
   ));
 
 
-  const links = linksMockdata.map((link, index) => (
+  const links = linksMockdata.links.map((link, index) => (
     <Link passHref
       className={classes.link}
-      data-active={activeLink === link.label || undefined}
-      href={link.path}
+      data-active={activeLink === link || undefined}
+      href={'#'}
       onClick={async (event) => {
         event.preventDefault();
         onToggle()
         dispatch(reduxUpdateSelectItem(index))
-        setActiveLink(link.label);
+        setActiveLink(link);
       }}
-      key={link.label}
+      key={link}
     >
-      {link.label}
+      {link}
     </Link>
   ));
 
 
   useEffect(() => {
-    if (linksMockdata.length > 0) {
-      setActiveLink(linksMockdata[0].label);
+    if (linksMockdata.name.length > 0) {
+      setActiveLink(linksMockdata.links[0]);
     }
   }, [linksMockdata]);
 
   return (
     <nav className={classes.navbar} >
+      <Center maw={400} h={40} className={classes.title}>
+        <Text
+          size="xl"
+          fw={900}
+          variant="gradient"
+          gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+        >
+          {active}
+        </Text>
+        {/* <Text size="sm"> {active}</Text>            */}
+      </Center>
       <div className={classes.footer}>
         <UnstyledButton className={classes.user}
           onClick={() => {
@@ -120,11 +144,8 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
             </form>
           </Tooltip>
         </div>
-
         <div className={classes.main}>
-          <Center maw={400} h={40} bg="var(--mantine-color-gray-light)">
-            <Text size="lg"> {active}</Text>
-          </Center>
+
           {links}
         </div>
       </div>

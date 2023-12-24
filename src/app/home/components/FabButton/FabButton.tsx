@@ -18,7 +18,7 @@ export function FabButton() {
             <ActionIcon
                 size="sm"
                 radius="sm"
-                variant="filled"
+                variant="default"
                 color="blue"
                 onClick={scrollToTop}
                 // style={{ position: 'fixed', top: '80px', right: '280px', zIndex: 200 }}

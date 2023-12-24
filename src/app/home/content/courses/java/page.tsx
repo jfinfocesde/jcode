@@ -10,7 +10,7 @@
 // import { recoverSession } from "@/app/utilities/recoverSession";
 // import { Group, Paper } from "@mantine/core";
 // import { FabButton } from "@/app/home/components/FabButton/FabButton";
-// import { Text,useMantineTheme } from '@mantine/core';
+// import { Text } from '@mantine/core';
 // import { useViewportSize } from "@mantine/hooks";
 
 // /** @type {import('mdx/types.js').MDXComponents} */
@@ -20,10 +20,8 @@
 //     }
 // }
 
-
 // export default function Page() {
-//     recoverSession()
-//     const theme = useMantineTheme();
+//     recoverSession()   
 //     const selectPage = useSelector((state: RootState) => state.selectItem.status)
 //     const dispatch = useDispatch()
 //     useEffect(() => {
@@ -34,45 +32,42 @@
 
 //     const { width } = useViewportSize();
 
-
 //     return (
 //         <MDXProvider components={components}>
-//             <Paper m={-20} p={'xs'} withBorder w={{base:'100%', md:`${width - 560}px`}} h={50} style={{ position: 'fixed', zIndex: 1 }}>
+//             <Paper  withBorder w={{base:'100%', md:`${width - 566}px`}} h={40} style={{ position: 'fixed', zIndex: 1 }}>
 //                 {/* Tus elementos de navegación van aquí */}
 //                 <Group justify="space-between" h="100%">
-//                     <Group justify="center">
-//                         <Text size="md">Python</Text>
+//                     <Group justify="center" ml={'lg'}>
+//                         <Text size="md" >{MENU.name}</Text>
 //                     </Group>
-//                     <Group justify="flex-end">
+//                     <Group justify="flex-end" pr={'md'}>
 //                         <FabButton />
 //                     </Group>
 //                 </Group>
 //             </Paper>
-//             <Paper pt={50}>
+//             <Paper pl={'md'} pr={'md'} pb={'md'} pt={'xl'}>
 //                 {page}
 //             </Paper>          
 //         </MDXProvider>
 //     );
 // }
 
-
+'use client'
 import React from 'react'
 import RenderMdx from '../../render'
 import { typeLink } from '@/app/features/links/links'
 
-import Page1 from './content/post1.mdx'
-import Page2 from './content/post2.mdx'
-import Page3 from './content/post3.mdx'
+import Intro from './content/intro.mdx'
+import Page1 from './content/sesion1.mdx'
 
 export const PAGES = [
+    <Intro />,
     <Page1 />,
-    <Page2 />,
-    <Page3 />
 ]
 
 export const MENU: typeLink = {
-    name: "test",
-    links: ["Introducción", "Sesión 1","Sesión 2"]
+    name: "Introducción a la Programación",
+    links: ["Introducción", "Sesión 1"]
 }
 
 export default function page() {
@@ -80,6 +75,7 @@ export default function page() {
     <RenderMdx PAGES={PAGES} MENU={MENU}/>
   )
 }
+
 
 
 

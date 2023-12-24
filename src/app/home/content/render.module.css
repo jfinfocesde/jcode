@@ -1,0 +1,10 @@
+.toolBar {
+    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-7));
+    border-bottom: 1px solid;
+    border-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+    height: 40px;
+    position: fixed;
+    z-index: 1;
+    margin: 0px;
+    border-radius: 0px;
+}

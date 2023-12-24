@@ -11,7 +11,7 @@ import {
 } from '@mantine/core';
 import { IconGauge, IconUser, IconCookie } from '@tabler/icons-react';
 import classes from './FeaturesCards.module.css';
-import { ArticleCard } from '../../ArticleCard/ArticleCard/ArticleCard';
+import { ArticleCard, typeArticleCard } from '../../ArticleCard/ArticleCard/ArticleCard';
 
 
 const mockdata = [
@@ -20,37 +20,56 @@ const mockdata = [
     description:
       'This dust is actually a powerful poison that will even make a pro wrestler sick, Regice cloaks itself with frigid air of -328 degrees Fahrenheit',
     icon: IconGauge,
+    route:'/home/content/courses/test',
+    image_url: "https://www.computerworld.es/archivos/202205/java-concurrency.png",
+    autor: "Jhon Valencia"
   },
   {
-    title: 'Privacy focused',
+    title: 'Python',
     description:
       'People say it can run at the same speed as lightning striking, Its icy body is so cold, it will not melt even if it is immersed in magma',
     icon: IconUser,
+    route:'/home/content/courses/java',
+    image_url: "https://d29jy8ovkd5kcx.cloudfront.net/wp-content/uploads/2021/11/29093822/shutterstock_1447245065-1.jpg",
+    autor: "Jhon Valencia"
   },
   {
     title: 'No third parties',
     description:
       'They’re popular, but they’re rare. Trainers who show them off recklessly may be targeted by thieves',
     icon: IconCookie,
+    route:'/home/content/courses/test',
+    image_url: "https://www.computerworld.es/archivos/202205/java-concurrency.png",
+    autor: "Jhon Valencia"
   },
 ];
 
 export function FeaturesCards() {
   const theme = useMantineTheme();
   const features = mockdata.map((feature) => (
-    <Card key={feature.title} shadow="md" radius="md" className={classes.card} padding="xl">
-      <feature.icon
-        style={{ width: rem(50), height: rem(50) }}
-        stroke={2}
-        color={theme.colors.blue[6]}
-      />
-      <Text fz="lg" fw={500} className={classes.cardTitle} mt="md">
-        {feature.title}
-      </Text>
-      <Text fz="sm" c="dimmed" mt="sm">
-        {feature.description}
-      </Text>      
-    </Card>
+
+
+
+    <ArticleCard data={{
+      title: feature.title,
+      description: feature.description,
+      route:feature.route,
+      image_url: feature.image_url,
+      autor: feature.autor,
+    }} />
+    // <Card key={feature.title} shadow="md" radius="md" className={classes.card} padding="xl">
+    //   <feature.icon
+    //     style={{ width: rem(50), height: rem(50) }}
+    //     stroke={2}
+    //     color={theme.colors.blue[6]}
+    //   />
+    //   <Text fz="lg" fw={500} className={classes.cardTitle} mt="md">
+    //     {feature.title}
+    //   </Text>
+    //   <Text fz="sm" c="dimmed" mt="sm">
+    //     {feature.description}
+    //   </Text>
+    // </Card>
   ));
 
   return (
@@ -71,11 +90,7 @@ export function FeaturesCards() {
       </Text>
 
       <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={50}>
-        <ArticleCard/>
-        <ArticleCard/>
-        <ArticleCard/>
-        <ArticleCard/>
-        <ArticleCard/>
+        {features}
       </SimpleGrid>
     </Container>
   );

@@ -10,16 +10,16 @@ export default function Account({ session }: { session: Session | null }) {
 
   const dispatch = useDispatch()
   dispatch(reduxUpdateSession(session))
-  
-  const links: typeLink = {   
-    label: "home",
-    path: "/home"
-  }
-  dispatch(reduxUpdateLinkList([links]));
-  window.scrollTo(0, 0);
+
+  // const links: typeLink = {
+  //   name: "test",
+  //   links: ["Introducción", "Sesión 1", "Sesión 2"]
+  // }
+  // dispatch(reduxUpdateLinkList(links));
+  // window.scrollTo(0, 0);
 
   return (
-    <>     
+    <>
       <HeroBullets />
     </>
   )

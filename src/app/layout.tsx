@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 // import './globals.css'
 import "@code-hike/mdx/dist/index.css"
 import '@mantine/core/styles.css';
+import '@mantine/tiptap/styles.css';
+
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 
 const inter = Inter({ subsets: ['latin'] })
