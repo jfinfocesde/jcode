@@ -29,13 +29,13 @@ export default function HomeLayout({
                 <AppShell.Header>
                     <Group justify="space-between" h="100%">
                         <Group h="100%" px="md">
-                            <Burger opened={navbarOpened} onClick={toggleNavbar} hiddenFrom="md" size="sm" />
+                            <Burger opened={navbarOpened} onClick={toggleNavbar} hiddenFrom="md" size="md" />
                             <Logo />
                         </Group>
                         <Group h="100%" px="md">
                             {/* Resto de los elementos del grupo */}
                             <ActionToggle />
-                            <Burger opened={asideOpened} onClick={toggleAside} hiddenFrom="md" size="sm" />
+                            <Burger opened={asideOpened} onClick={toggleAside} hiddenFrom="md" size="md" />
                         </Group>                       
                     </Group>
                 </AppShell.Header>
