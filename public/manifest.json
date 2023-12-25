@@ -1,0 +1,67 @@
+{ 
+  "name": "Next-13 PWA" , 
+  "short_name" : "PWA" , 
+  "theme_color" : "#2196f3" , 
+  "background_color" : "#2196f3" , 
+  "display" : "independiente" , 
+  "orientación" : "retrato" , 
+  "alcance" : "/" , 
+  "start_url" : "/" , 
+  "iconos" : [ 
+    { 
+      " src ": "icons/icon-48x48.png" , 
+      "tamaños" : "48x48" , 
+      "tipo " : "imagen/png" , 
+      "propósito" : "enmascarable cualquiera"
+     }, 
+    { 
+      " src ": "icons/icon-72x72.png" , 
+      "tamaños" : "72x72" , 
+      "tipo" : "imagen/png" , 
+      "propósito" : "enmascarable cualquiera"
+     }, 
+    { 
+      " src ": "icons/icon-96x96.png" , 
+      "tamaños" : "96x96" , 
+      "tipo" : "image/png" , 
+      "propósito" : "enmascarable cualquiera"
+     }, 
+    { 
+      " src ": "icons/icon-128x128.png" , 
+      "tamaños" : "128x128" , 
+      "tipo" : "imagen/png" , 
+      "propósito" : "enmascarable cualquiera"
+     }, 
+    { 
+      " src ": "iconos/icono-144x144.png" , 
+      "tamaños" : "144x144" , 
+      "tipo" : "imagen/png" , 
+      "propósito" : "enmascarable cualquiera"
+     }, 
+    { 
+      " src ": "iconos/icono- 152x152.png" , 
+      "tamaños" :"152x152" , 
+      "tipo" : "imagen/png" , 
+      "propósito" : "enmascarable cualquiera"
+     }, 
+    { 
+      " src ": "icons/icon-192x192.png" , 
+      "tamaños" : "192x192" , 
+      "tipo" : "imagen/png" , 
+      "propósito": "enmascarable cualquiera"
+     }, 
+    { 
+      " src ": "icons/icon-384x384.png" , 
+      "tamaños" : "384x384" , 
+      "tipo" : "image/png" , 
+      "propósito" : "enmascarable cualquiera"
+     }, 
+    { 
+      " src ": "icons/icon-512x512.png" , 
+      "tamaños" : "512x512" , 
+      "tipo" : "image/png" , 
+      "propósito" : "enmascarable cualquiera"
+     } 
+  ], 
+  "splash_pages": null 
+}
