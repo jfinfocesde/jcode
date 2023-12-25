@@ -1,5 +1,5 @@
 'use client'
-import { AppShell, Burger, Button, Group } from "@mantine/core";
+import { AppShell, Burger, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { ActionToggle } from "./components/ActionToggle/ActionToggle";
 import { DoubleNavbar } from "./components/DoubleNavbar/DoubleNavbar/DoubleNavbar";
@@ -12,53 +12,48 @@ export default function HomeLayout({
     children,
 }: {
     children: React.ReactNode
-}) {    
-   
+}) {
+
     const [navbarOpened, { toggle: toggleNavbar }] = useDisclosure();
-    const [asideOpened, { toggle: toggleAside }] = useDisclosure();  
-    
-    // const handleToggle = () => {
-    //     toggleNavbar();
-    //   };
+    const [asideOpened, { toggle: toggleAside }] = useDisclosure();
 
     return (
         <Provider store={store}>
             <AppShell
-                header={{ height: 60 }}
+                header={{ height: 50 }}
                 navbar={{ width: 300, breakpoint: 'md', collapsed: { mobile: !navbarOpened } }}
-                
+
                 aside={{ width: 250, breakpoint: 'md', collapsed: { mobile: !asideOpened } }}
                 footer={{ height: 40 }}
             >
                 <AppShell.Header>
                     <Group justify="space-between" h="100%">
-                        <Group h="100%" px="md">
-                            {/* <Button onClick={handleToggle}>Toggle</Button> */}
-                            <Burger opened={navbarOpened} onClick={(event)=>{
+                        <Group h="100%" px="sm">
+                            <Burger opened={navbarOpened} onClick={(event) => {
                                 event.preventDefault()
                                 toggleNavbar()
-                            }} hiddenFrom="md" size="md" />
+                            }} hiddenFrom="md" size="sm" />
                             <Logo />
                         </Group>
-                        <Group h="100%" px="md">
+                        <Group h="100%" px="sm">
                             {/* Resto de los elementos del grupo */}
                             <ActionToggle />
-                            <Burger opened={asideOpened} onClick={(event)=>{
+                            <Burger opened={asideOpened} onClick={(event) => {
                                 event.preventDefault()
                                 toggleAside()
-                            }} hiddenFrom="md" size="md" />
-                        </Group>                       
+                            }} hiddenFrom="md" size="sm" />
+                        </Group>
                     </Group>
                 </AppShell.Header>
                 <AppShell.Navbar >
                     {/* <h1>navbar</h1> */}
-                    <DoubleNavbar onToggle={toggleNavbar}/>
+                    <DoubleNavbar onToggle={toggleNavbar} />
                 </AppShell.Navbar>
                 <AppShell.Main>
                     {children}
                 </AppShell.Main>
                 <AppShell.Aside p={'sm'}>
-             
+
                     <Sidebar onToggle={toggleAside} />
                 </AppShell.Aside>
                 <AppShell.Footer >

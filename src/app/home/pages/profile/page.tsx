@@ -4,7 +4,7 @@ import { recoverSession } from '@/app/utilities/recoverSession'
 import React from 'react'
 
 function page() {
-  recoverSession()
+   recoverSession()
   return (
     <div>Profile</div>
   )

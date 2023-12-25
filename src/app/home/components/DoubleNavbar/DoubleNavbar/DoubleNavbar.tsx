@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { UnstyledButton, Tooltip, rem, Center} from '@mantine/core';
+import { UnstyledButton, Tooltip, rem, Center } from '@mantine/core';
 import {
   IconHome2,
   IconSettings,
@@ -17,24 +17,33 @@ import { reduxUpdateSelectItem } from '@/app/features/selectItem/selectItem';
 import { reduxChangeSidebar } from '@/app/features/sidebar/sidebar';
 import { UserButton } from '../../UserButton/UserButton';
 import { reduxUpdateLinkList } from '@/app/features/links/links';
-
+import { User } from '@supabase/supabase-js';
 
 const mainLinksMockdata = [
   { icon: IconHome2, label: 'Incio', route: '/home', sisdebar: "home" },
   { icon: IconCertificate, label: 'Cursos', route: '/home/content/courses', sisdebar: "courses" },
   { icon: IconSettings, label: 'Settings', route: '/home/pages/settings', sisdebar: "courses" },
 ];
-// { onToggle }: { onToggle: () => void }
 
 export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
   const [active, setActive] = useState('Home');
   const [activeLink, setActiveLink] = useState('Home');
   const router = useRouter()
-
-  const currentsession = useSelector((state: RootState) => state.session.currentSession)
-  const linksMockdata = useSelector((state: RootState) => state.links.linkList)
   const dispatch = useDispatch()
 
+  const [user, setUser] = useState<User | undefined>(undefined);
+  const currentsession = useSelector((state: RootState) => state.session.currentSession)
+  const linksMockdata = useSelector((state: RootState) => state.links.linkList)
+
+  useEffect(() => {
+    if (currentsession) {
+      setUser(currentsession?.user)
+      console.log("update session");
+    }
+    else {
+      router.push('/home')
+    }
+  }, [currentsession])
 
   const mainLinks = mainLinksMockdata.map((link) => (
     <Tooltip
@@ -112,19 +121,22 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
         </Text>
         {/* <Text size="sm"> {active}</Text>            */}
       </Center>
-      {/* <div className={classes.footer}>
+
+      <div className={classes.footer}>
         <UnstyledButton className={classes.user}
           onClick={() => {
-            // onToggle()
+            onToggle()
             router.push('/home/pages/profile')
           }}
         >
           <UserButton
-            name={currentsession?.user.user_metadata.name}
-            email={currentsession?.user.email}
-            avatar={currentsession?.user.user_metadata.avatar_url} />
+            name={user ? user.user_metadata.name : ""}
+            email={user ? user.email : ""}
+            avatar={user ? user.user_metadata.avatar_url : ""} />
+
         </UnstyledButton>
-      </div> */}
+
+      </div>
       <div className={classes.wrapper}>
         <div className={classes.aside}>
           {mainLinks}
@@ -145,11 +157,9 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
           </Tooltip>
         </div>
         <div className={classes.main}>
-
           {links}
         </div>
       </div>
-
     </nav>
   );
 }
