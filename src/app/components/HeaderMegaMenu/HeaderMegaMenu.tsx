@@ -3,7 +3,6 @@ import {
   Button,
   Box,
   UnstyledButton,
-  Image,
   Title,
   Text,
   Container,
@@ -12,9 +11,6 @@ import {
   Center,
   PinInput,
   SimpleGrid,
-  List,
-  ThemeIcon,
-  rem,
 } from '@mantine/core';
 
 import classes from './HeaderMegaMenu.module.css';
@@ -25,8 +21,6 @@ import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Database } from '@/types/supabase/supabase'
-import { IconCheck } from '@tabler/icons-react';
-import image from '../../../../public/banner.png';
 
 export function HeaderMegaMenu() {
   const [mode, setMode] = useState('main')
@@ -41,7 +35,6 @@ export function HeaderMegaMenu() {
   function handleModeSignUp() {
     setMode('signup')
   }
-
 
   const [register, setRegister] = useState(false)
   const [code, setCode] = useState('')
@@ -89,27 +82,19 @@ export function HeaderMegaMenu() {
       {mode == "main" && (
         <Container fluid>
           <div className={classes.inner}>
-
             <Center mt={100}>
               <Logo />
-            </Center>
-
-            {/* <Title ta={'center'} mt={100}>
-              JCODE{' '}
-            </Title> */}
-
+            </Center>    
             <Container p={0} size={600} mt={'md'}>
               <Text size="lg" c="dimmed" className={classes.description}>
                 Solución definitiva para la documentación de código, proporcionando una plataforma intuitiva y potente para crear, gestionar y compartir documentación de manera eficiente, transformando la documentación en una experiencia agradable y fluida.
               </Text>
             </Container>
-
             <div className={classes.controls}>
               <Button
                 variant="gradient"
-                gradient={{ from: 'indigo', to: 'blue', deg: 90 }} onClick={handleModeSignIn}
+                gradient={{ from: 'blue', to: 'cyan', deg: 90 }} onClick={handleModeSignIn}
               >
-
                 Iniciar Sesión
               </Button>
             </div>
@@ -157,6 +142,11 @@ export function HeaderMegaMenu() {
           <Text ta="center">Cree su cuenta para continuar</Text>
 
           <Paper withBorder shadow="md" p={30} radius="md" mt="xl">
+
+          <Center >
+              <Logo />
+            </Center>
+
             <Text fw={700} size='lg' ta="center">
               CODIGO DE REGISTRO
             </Text>
@@ -169,7 +159,11 @@ export function HeaderMegaMenu() {
             }} disabled={register} />
 
             <SimpleGrid cols={1} verticalSpacing="md">
-              <Button fullWidth mt={'md'} onClick={handleRegister} color={register ? 'green' : 'blue'}>{register ? "Validado" : "Validar"} </Button>
+              <Button fullWidth mt={'md'} onClick={handleRegister} 
+              variant="gradient"
+              gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+              
+              >{register ? "Validado" : "Validar"} </Button>
 
               {register && (
                 <>
@@ -189,7 +183,6 @@ export function HeaderMegaMenu() {
                   />
                 </>
               )}
-
               <Text m={'md'} c="dimmed" size="sm" ta="center" mt={5}>
                 ¿Ya tienes una cuenta?{' '}
                 <Anchor size="sm" component="button">
@@ -198,7 +191,6 @@ export function HeaderMegaMenu() {
                   </UnstyledButton>
                 </Anchor>
               </Text>
-
             </SimpleGrid>
           </Paper>
         </Container>

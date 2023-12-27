@@ -1,11 +1,11 @@
 {
-    "theme_color": "#4a90e2",
-    "background_color": "#9b9b9b",
+    "theme_color": "#3DE2FF",
+    "background_color": "#ffffff",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "jcode",
-    "short_name": "jcode",
+    "name": "JDOCode",
+    "short_name": "JDOCode",
     "icons": [
         {
             "src": "/icon-192x192.png",
