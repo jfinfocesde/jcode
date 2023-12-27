@@ -92,8 +92,8 @@ export function ForgotPassword() {
                 showLinks={false}
                 onlyThirdPartyProviders={true}
                 providers={['github', 'google']}
-                redirectTo={`https://jcode-khaki.vercel.app/api/auth/register?code_group=${code}`}
-              // redirectTo={`http://localhost:3000/api/auth/register?code_group=${code}`}
+                // redirectTo={`https://jcode-khaki.vercel.app/api/auth/register?code_group=${code}`}
+              redirectTo={`http://localhost:3000/api/auth/register?code_group=${code}`}
               />
             </>
           )}
