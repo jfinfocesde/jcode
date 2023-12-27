@@ -105,7 +105,11 @@ export function HeaderMegaMenu() {
             </Container>
 
             <div className={classes.controls}>
-              <Button size="md" variant="filled" color="blue" onClick={handleModeSignIn}>
+              <Button
+                variant="gradient"
+                gradient={{ from: 'indigo', to: 'blue', deg: 90 }} onClick={handleModeSignIn}
+              >
+
                 Iniciar Sesión
               </Button>
             </div>
