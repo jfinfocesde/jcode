@@ -9,11 +9,40 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      groups: {
+        Row: {
+          code: string | null
+          created_at: string
+          description: string | null
+          id: number
+          name: string | null
+          register: boolean | null
+        }
+        Insert: {
+          code?: string | null
+          created_at?: string
+          description?: string | null
+          id?: number
+          name?: string | null
+          register?: boolean | null
+        }
+        Update: {
+          code?: string | null
+          created_at?: string
+          description?: string | null
+          id?: number
+          name?: string | null
+          register?: boolean | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
           full_name: string | null
+          group_id: number | null
           id: string
+          role: string | null
           routes: string | null
           updated_at: string | null
           username: string | null
@@ -22,7 +51,9 @@ export interface Database {
         Insert: {
           avatar_url?: string | null
           full_name?: string | null
+          group_id?: number | null
           id: string
+          role?: string | null
           routes?: string | null
           updated_at?: string | null
           username?: string | null
@@ -31,13 +62,22 @@ export interface Database {
         Update: {
           avatar_url?: string | null
           full_name?: string | null
+          group_id?: number | null
           id?: string
+          role?: string | null
           routes?: string | null
           updated_at?: string | null
           username?: string | null
           website?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "profiles_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "profiles_id_fkey"
             columns: ["id"]
