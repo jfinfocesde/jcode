@@ -30,7 +30,12 @@ export function AuthenticationTitle() {
         <Title ta="center" className={classes.title}>
           INICIAR SESIÓN
         </Title>
-        
+        <Text c="dimmed" size="sm" ta="center" mt={5}>
+          ¿Aún no tiene cuenta?{' '}
+          <Anchor size="sm" component="button">
+            Crear una cuenta
+          </Anchor>
+        </Text>
         <Auth
           supabaseClient={supabase}
           appearance={{ theme: ThemeSupa }}
@@ -39,7 +44,7 @@ export function AuthenticationTitle() {
           onlyThirdPartyProviders={true}
           providers={['github', 'google']}
           redirectTo="https://jcode-khaki.vercel.app/api/auth/callback"
-          // redirectTo="http://localhost:3000/api/auth/callback"
+        // redirectTo="http://localhost:3000/api/auth/callback"
         />
       </Paper>
     </Container>
