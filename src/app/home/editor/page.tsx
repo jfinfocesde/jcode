@@ -2,7 +2,6 @@
 import React from 'react'
 import EditorMDX from './components/editor'
 import { Group, Paper, SimpleGrid ,Text} from '@mantine/core'
-import { FabButton } from '../components/FabButton/FabButton'
 import { useViewportSize } from "@mantine/hooks";
 
 
@@ -16,10 +15,7 @@ export default function page() {
                 <Group justify="space-between" h="100%">
                     <Group justify="center" ml={'lg'}>
                         <Text size="md" ></Text>
-                    </Group>
-                    <Group justify="flex-end" pr={'md'}>
-                        <FabButton />
-                    </Group>
+                    </Group>                   
                 </Group>
             </Paper>
             <SimpleGrid cols={1} spacing="sm" verticalSpacing="sm" pl={'sm'} pr={'sm'} pb={'sm'} pt={50}>

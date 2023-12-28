@@ -9,6 +9,33 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      courses: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: number
+          image_url: string | null
+          name: string | null
+          route: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          image_url?: string | null
+          name?: string | null
+          route?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          image_url?: string | null
+          name?: string | null
+          route?: string | null
+        }
+        Relationships: []
+      }
       groups: {
         Row: {
           code: string | null
@@ -42,33 +69,30 @@ export interface Database {
           full_name: string | null
           group_id: number | null
           id: string
+          lock: boolean | null
           role: string | null
           routes: string | null
           updated_at: string | null
-          username: string | null
-          website: string | null
         }
         Insert: {
           avatar_url?: string | null
           full_name?: string | null
           group_id?: number | null
           id: string
+          lock?: boolean | null
           role?: string | null
           routes?: string | null
           updated_at?: string | null
-          username?: string | null
-          website?: string | null
         }
         Update: {
           avatar_url?: string | null
           full_name?: string | null
           group_id?: number | null
           id?: string
+          lock?: boolean | null
           role?: string | null
           routes?: string | null
           updated_at?: string | null
-          username?: string | null
-          website?: string | null
         }
         Relationships: [
           {

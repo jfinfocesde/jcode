@@ -6,8 +6,8 @@ export interface typeLink {
 }
 
 const temp: typeLink = {   
-    name: "home",
-    links: ["/home"]
+    name: "Inicio",
+    links: []
 }
 
 interface LinkState {

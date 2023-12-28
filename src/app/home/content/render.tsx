@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { reduxUpdateLinkList, typeLink } from "@/app/features/links/links";
 import { RootState } from "@/app/store";
 import { reduxUpdateSelectItem } from "@/app/features/selectItem/selectItem";
-import { Box, Group, Paper } from "@mantine/core";
-import { FabButton } from "@/app/home/components/FabButton/FabButton";
+import { ActionIcon, Box, Group, Paper, Tooltip } from "@mantine/core";
 import { Text } from '@mantine/core';
 import { useViewportSize } from "@mantine/hooks";
 import classes from './render.module.css';
+import { IconArrowBarUp, IconCaretUpFilled, IconSquareArrowUp } from "@tabler/icons-react";
 
 /** @type {import('mdx/types.js').MDXComponents} */
 const components = {
@@ -30,6 +30,11 @@ export default function RenderMdx({ PAGES, MENU }: { PAGES: JSX.Element[], MENU:
     const page = PAGES[selectPage];
     const { width } = useViewportSize();
 
+    const scrollToTop = (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
+        window.scrollTo(0, 0);
+    };
+
     return (
         <MDXProvider components={components}>
             <Paper w={{ base: '100%', md: `${width - 564}px` }} className={classes.toolBar} >
@@ -37,10 +42,29 @@ export default function RenderMdx({ PAGES, MENU }: { PAGES: JSX.Element[], MENU:
                 <Group justify="space-between" h="100%">
                     <Group justify="center" ml={'lg'}>
                         <Text size="md" fw={700} variant="gradient"
-                            gradient={{ from: 'blue', to: 'cyan', deg: 90 }}>{MENU.name}</Text>
+                            gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+                            style={{ maxWidth: '400px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {MENU.name}
+                        </Text>
                     </Group>
                     <Group justify="flex-end" pr={'md'}>
-                        <FabButton />
+                        <Tooltip
+                            label={"Ir al inicio"}
+                            position="right"
+                            withArrow
+                            transitionProps={{ duration: 0 }}
+                        >
+                            <ActionIcon
+                                size="sm"
+                                radius="sm"
+                                variant="default"
+                                color="blue"
+                                onClick={scrollToTop}
+                            // style={{ position: 'fixed', top: '80px', right: '280px', zIndex: 200 }}
+                            >
+                                <IconCaretUpFilled size={12} />
+                            </ActionIcon>
+                        </Tooltip>
                     </Group>
                 </Group>
             </Paper>

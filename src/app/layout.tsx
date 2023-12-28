@@ -10,7 +10,7 @@ import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'JCODE',
+  title: 'JDOCode',
   description: 'App doc',
   manifest: "/manifest.json",
   icons: {

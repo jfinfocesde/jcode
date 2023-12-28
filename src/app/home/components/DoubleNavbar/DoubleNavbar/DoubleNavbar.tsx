@@ -20,14 +20,14 @@ import { reduxUpdateLinkList } from '@/app/features/links/links';
 import { User } from '@supabase/supabase-js';
 
 const mainLinksMockdata = [
-  { icon: IconHome2, label: 'Incio', route: '/home', sisdebar: "home" },
+  { icon: IconHome2, label: 'Inicio', route: '/home', sisdebar: "home" },
   { icon: IconCertificate, label: 'Cursos', route: '/home/content/courses', sisdebar: "courses" },
   { icon: IconSettings, label: 'Settings', route: '/home/pages/settings', sisdebar: "courses" },
 ];
 
 export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
-  const [active, setActive] = useState('Home');
-  const [activeLink, setActiveLink] = useState('Home');
+  const [active, setActive] = useState('Inicio');
+  const [activeLink, setActiveLink] = useState('Inicio');
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -40,7 +40,7 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
       setUser(currentsession?.user)
       console.log("update session");
     }
-    else {
+    else {      
       router.push('/home')
     }
   }, [currentsession])
@@ -60,13 +60,13 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
             dispatch(reduxChangeSidebar(link.sisdebar))
             switch (link.label) {
               case 'Incio':
-                dispatch(reduxUpdateLinkList({ name: "Inicio", links: [""] }))
+                dispatch(reduxUpdateLinkList({ name: "Inicio", links: [] }))
                 break;
               case 'Cursos':
-                dispatch(reduxUpdateLinkList({ name: "Cursos", links: ["Java", "Python", "Javascript"] }))
+                dispatch(reduxUpdateLinkList({ name: "Cursos", links: [] }))
                 break;
               case 'Settings':
-                dispatch(reduxUpdateLinkList({ name: "Settings", links: [""] }))
+                dispatch(reduxUpdateLinkList({ name: "Settings", links: [] }))
                 break;
             }
             setActive(link.label)
@@ -96,7 +96,7 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
         setActiveLink(link);
       }}
       key={link}
-    >
+      style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
       {link}
     </Link>
   ));
@@ -118,10 +118,8 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
           gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
         >
           {active}
-        </Text>
-        {/* <Text size="sm"> {active}</Text>            */}
+        </Text>       
       </Center>
-
       <div className={classes.footer}>
         <UnstyledButton className={classes.user}
           onClick={() => {

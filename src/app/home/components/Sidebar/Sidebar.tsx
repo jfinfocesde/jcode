@@ -9,7 +9,7 @@ export default function Sidebar({ onToggle }: { onToggle: () => void }) {
     <ScrollArea w={'auto'} scrollbars="y">
       <Box h="100%" >
         {selectSidebar === 'courses' && <TableOfContentsFloating onToggle={onToggle}/>}
-        {selectSidebar === 'home' && <h1>Prueba</h1>}
+        {selectSidebar === 'home' && <></>}
       </Box>
     </ScrollArea>
   );
