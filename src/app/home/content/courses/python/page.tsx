@@ -1,6 +1,6 @@
 import React from 'react'
 import RenderMdx from '../../render'
-import { typeLink } from '@/app/features/links/links'
+import { typeLeftSidebarLink } from '@/app/features/leftSidebarLink/leftSidebarLink'
 
 import Page1 from './content/post1.mdx'
 import Page2 from './content/post2.mdx'
@@ -12,7 +12,7 @@ const PAGES = [
   <Page3 />
 ]
 
-const MENU: typeLink = {
+const MENU: typeLeftSidebarLink = {
   name: "Python",
   links: ["Introducción", "Sesión 1", "Sesión 2"]
 }

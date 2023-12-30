@@ -3,14 +3,14 @@
 import { MDXProvider } from "@mdx-js/react";
 import { ClassAttributes, HTMLAttributes, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { reduxUpdateLinkList, typeLink } from "@/app/features/links/links";
 import { RootState } from "@/app/store";
-import { reduxUpdateSelectItem } from "@/app/features/selectItem/selectItem";
 import { ActionIcon, Box, Group, Paper, Tooltip } from "@mantine/core";
 import { Text } from '@mantine/core';
 import { useViewportSize } from "@mantine/hooks";
 import classes from './render.module.css';
 import { IconArrowBarUp, IconCaretUpFilled, IconSquareArrowUp } from "@tabler/icons-react";
+import { reduxSetLeftSidebarLink, typeLeftSidebarLink } from "@/app/features/leftSidebarLink/leftSidebarLink";
+import { reduxSetSelectLink } from "@/app/features/selectLink/selectLink";
 
 /** @type {import('mdx/types.js').MDXComponents} */
 const components = {
@@ -19,13 +19,13 @@ const components = {
     }
 }
 
-export default function RenderMdx({ PAGES, MENU }: { PAGES: JSX.Element[], MENU: typeLink }) {
+export default function RenderMdx({ PAGES, MENU }: { PAGES: JSX.Element[], MENU: typeLeftSidebarLink }) {
 
-    const selectPage = useSelector((state: RootState) => state.selectItem.status)
+    const selectPage = useSelector((state: RootState) => state.SelectLink.value)
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(reduxUpdateLinkList(MENU));
-        dispatch(reduxUpdateSelectItem(0))
+        dispatch(reduxSetLeftSidebarLink(MENU));
+        dispatch(reduxSetSelectLink(0))
     }, [dispatch]);
     const page = PAGES[selectPage];
     const { width } = useViewportSize();

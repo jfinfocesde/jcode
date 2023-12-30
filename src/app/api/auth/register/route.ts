@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
       .from('groups')
       .select("*")
       .eq('code', code_group)
-      .eq('register', true)
+      .eq('block_registration', true)
     if (error) throw error;
 
     if (groups && groups.length > 0) {
@@ -49,8 +49,7 @@ export async function GET(req: NextRequest) {
             id: user?.id,
             full_name: user?.user_metadata.full_name,
             avatar_url: user?.user_metadata.avatar_url,
-            routes: "{}",
-            role: "user",
+            block: false,           
             group_id: groups[0].id,
             updated_at: new Date().toISOString(),
           })

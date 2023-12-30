@@ -18,47 +18,47 @@ export function FeaturesCards() {
   const supabase = createClientComponentClient<Database>()
   const [courses, setCourses] = useState<typeArticleCard[]>([])
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    async function getCourses() {
-      try {
-        let { data: courses, error } = await supabase
-          .from('courses')
-          .select("*")
+  //   async function getCourses() {
+  //     try {
+  //       let { data: courses, error } = await supabase
+  //         .from('courses')
+  //         .select("*")
 
-        if (error) throw error;
+  //       if (error) throw error;
 
-        if (courses && courses.length > 0) {
-          const data = courses.map((item) => {
-            const temp: typeArticleCard = {
-              title: item.name,
-              description: item.description,
-              route: item.route,
-              image_url: item.image_url
-            }
-            return temp
-          })
+  //       if (courses && courses.length > 0) {
+  //         const data = courses.map((item) => {
+  //           const temp: typeArticleCard = {
+  //             title: item.name,
+  //             description: item.description,
+  //             folder_name: item.folder_name,
+  //             image_url: item.image_url
+  //           }
+  //           return temp
+  //         })
 
-          setCourses(data)
-        }
-        else {
+  //         setCourses(data)
+  //       }
+  //       else {
 
-        }
-      } catch (error) {
+  //       }
+  //     } catch (error) {
 
-      } finally {
+  //     } finally {
 
-      }
-    }
-    getCourses();
+  //     }
+  //   }
+  //   getCourses();
 
-  }, [])
+  // }, [])
 
   const features = courses.map((feature) => (
     <ArticleCard data={{
       title: feature.title,
       description: feature.description,
-      route: feature.route,
+      folder_name: feature.folder_name,
       image_url: feature.image_url,
     }} />
   ));

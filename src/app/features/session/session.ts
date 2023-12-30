@@ -10,7 +10,7 @@ const initialState: typeSession = {
 };
 
 export const reduxSessionSlice = createSlice({
-    name: 'session',
+    name: 'Session',
     initialState,
 
     reducers: {        

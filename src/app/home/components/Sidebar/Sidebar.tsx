@@ -4,7 +4,7 @@ import { RootState } from '@/app/store';
 import { useSelector } from 'react-redux';
 
 export default function Sidebar({ onToggle }: { onToggle: () => void }) {
-  const selectSidebar = useSelector((state: RootState) => state.sidebar.status)
+  const selectSidebar = useSelector((state: RootState) => state.RightSidebar.value)
   return (
     <ScrollArea w={'auto'} scrollbars="y">
       <Box h="100%" >

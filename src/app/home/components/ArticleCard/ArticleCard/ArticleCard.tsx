@@ -9,7 +9,7 @@ import Link from 'next/link';
 export interface typeArticleCard {
   title: string | null,
   description: string | null,
-  route: string | null,
+  folder_name: string | null,
   image_url: string | null,
 }
 
@@ -17,7 +17,7 @@ export function ArticleCard({ data }: { data: typeArticleCard }) {
   return (
     <Card withBorder radius="md" className={classes.card}>
       <Card.Section>
-        <Link href={data.route ? `/home/content/courses/${data.route}`: ""} >
+        <Link href={data.folder_name ? `/home/content/courses/${data.folder_name}`: ""} >
           <Image src={data.image_url} height={180} />
         </Link>
       </Card.Section>

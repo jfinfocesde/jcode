@@ -13,39 +13,40 @@ import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../../../../store'
 import { useRouter } from 'next/navigation'
-import { reduxUpdateSelectItem } from '@/app/features/selectItem/selectItem';
-import { reduxChangeSidebar } from '@/app/features/sidebar/sidebar';
-import { UserButton } from '../../UserButton/UserButton';
-import { reduxUpdateLinkList } from '@/app/features/links/links';
-import { User } from '@supabase/supabase-js';
 
-const mainLinksMockdata = [
+import { UserButton } from '../../UserButton/UserButton';
+
+import { User } from '@supabase/supabase-js';
+import { reduxSetLeftSidebarLink } from '@/app/features/leftSidebarLink/leftSidebarLink';
+import { reduxSetSelectLink } from '@/app/features/selectLink/selectLink';
+import { reduxSetRightSidebar } from '@/app/features/rightSidebar/rightSidebar';
+
+const linksLeftSidebarIcon = [
   { icon: IconHome2, label: 'Inicio', route: '/home', sisdebar: "home" },
   { icon: IconCertificate, label: 'Cursos', route: '/home/content/courses', sisdebar: "courses" },
   { icon: IconSettings, label: 'Settings', route: '/home/pages/settings', sisdebar: "courses" },
 ];
 
 export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
-  const [active, setActive] = useState('Inicio');
+  const [activeIcon, setActive] = useState('Inicio');
   const [activeLink, setActiveLink] = useState('Inicio');
   const router = useRouter()
   const dispatch = useDispatch()
 
   const [user, setUser] = useState<User | undefined>(undefined);
-  const currentsession = useSelector((state: RootState) => state.session.currentSession)
-  const linksMockdata = useSelector((state: RootState) => state.links.linkList)
+  const currentsession = useSelector((state: RootState) => state.Session.currentSession)
+  const linksLeftSidebar = useSelector((state: RootState) => state.LeftSidebarLink.links)
 
   useEffect(() => {
     if (currentsession) {
-      setUser(currentsession?.user)
-      console.log("update session");
+      setUser(currentsession?.user)  
     }
-    else {      
+    else {          
       router.push('/home')
     }
   }, [currentsession])
 
-  const mainLinks = mainLinksMockdata.map((link) => (
+  const linksIcon = linksLeftSidebarIcon.map((link) => (
     <Tooltip
       label={link.label}
       position="right"
@@ -57,16 +58,16 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
         onClick={() => {
           try {
             onToggle()
-            dispatch(reduxChangeSidebar(link.sisdebar))
+            dispatch(reduxSetRightSidebar(link.sisdebar))
             switch (link.label) {
               case 'Incio':
-                dispatch(reduxUpdateLinkList({ name: "Inicio", links: [] }))
+                dispatch(reduxSetLeftSidebarLink({ name: "Inicio", links: [] }))
                 break;
               case 'Cursos':
-                dispatch(reduxUpdateLinkList({ name: "Cursos", links: [] }))
+                dispatch(reduxSetLeftSidebarLink({ name: "Cursos", links: [] }))
                 break;
               case 'Settings':
-                dispatch(reduxUpdateLinkList({ name: "Settings", links: [] }))
+                dispatch(reduxSetLeftSidebarLink({ name: "Settings", links: [] }))
                 break;
             }
             setActive(link.label)
@@ -76,7 +77,7 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
           }
         }}
         className={classes.mainLink}
-        data-active={link.label === active || undefined}
+        data-active={link.label === activeIcon || undefined}
       >
         <link.icon style={{ width: rem(22), height: rem(22) }} stroke={1.5} />
       </UnstyledButton>
@@ -84,7 +85,7 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
   ));
 
 
-  const links = linksMockdata.links.map((link, index) => (
+  const linksLS = linksLeftSidebar.links.map((link, index) => (
     <Link passHref
       className={classes.link}
       data-active={activeLink === link || undefined}
@@ -92,7 +93,7 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
       onClick={async (event) => {
         event.preventDefault();
         onToggle()
-        dispatch(reduxUpdateSelectItem(index))
+        dispatch(reduxSetSelectLink(index))
         setActiveLink(link);
       }}
       key={link}
@@ -103,10 +104,10 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
 
 
   useEffect(() => {
-    if (linksMockdata.name.length > 0) {
-      setActiveLink(linksMockdata.links[0]);
+    if (linksLeftSidebar.name.length > 0) {
+      setActiveLink(linksLeftSidebar.links[0]);
     }
-  }, [linksMockdata]);
+  }, [linksLeftSidebar]);
 
   return (
     <nav className={classes.navbar} >
@@ -117,7 +118,7 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
           variant="gradient"
           gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
         >
-          {active}
+          {activeIcon}
         </Text>       
       </Center>
       <div className={classes.footer}>
@@ -137,7 +138,7 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
       </div>
       <div className={classes.wrapper}>
         <div className={classes.aside}>
-          {mainLinks}
+          {linksIcon}
           <Tooltip
             label={"Cerrar sesión"}
             position="right"
@@ -155,7 +156,7 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
           </Tooltip>
         </div>
         <div className={classes.main}>
-          {links}
+          {linksLS}
         </div>
       </div>
     </nav>

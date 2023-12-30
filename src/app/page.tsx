@@ -1,13 +1,5 @@
 'use client'
 
-// import React from 'react'
-// import { MainPage } from './components/HeaderMegaMenu/MainPage'
-
-// export default function page() {
-//   return (   
-//     <MainPage/>         
-//   )
-// }
 
 import {
   Group,
@@ -60,7 +52,7 @@ export default function page() {
       .from('groups')
       .select("*")
       .eq('code', code)
-      .eq('register', true)
+      .eq('block_registration', true)
 
     if (groups) {
       if (groups.length > 0) {
@@ -68,13 +60,11 @@ export default function page() {
       }
       else {
         setCode('')
-      }
-      console.log(groups);
+      }      
     }
     if (error) {
       setRegister(false)
-      setCode('')
-      console.log(error);
+      setCode('')     
     }
   }
 
@@ -114,6 +104,7 @@ export default function page() {
       )}
 
       {mode == "signin" && (
+        // <h1>ok</h1>
         <Container size={500} mx={'auto'} mt={80} >
 
           <Title ta="center">Inicio de Sesión</Title>
@@ -138,7 +129,7 @@ export default function page() {
             <Text m={'md'} c="dimmed" size="sm" ta="center" mt={5}>
               ¿Aún no tiene cuenta?{' '}
               <Anchor size="sm" component="button">
-                <UnstyledButton onClick={handleModeSignUp}>
+                <UnstyledButton component="a" onClick={handleModeSignUp}>
                   Crear una cuenta
                 </UnstyledButton>
               </Anchor>
@@ -197,7 +188,7 @@ export default function page() {
               <Text m={'md'} c="dimmed" size="sm" ta="center" mt={5}>
                 ¿Ya tienes una cuenta?{' '}
                 <Anchor size="sm" component="button">
-                  <UnstyledButton onClick={handleModeSignIn}>
+                  <UnstyledButton component="a" onClick={handleModeSignIn}>
                     Iniciar Sesión
                   </UnstyledButton>
                 </Anchor>

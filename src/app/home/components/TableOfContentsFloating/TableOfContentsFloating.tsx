@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import cx from 'clsx';
-import { Box, Text, Group, rem, Tooltip } from '@mantine/core';
-import {  IconCircleCheck, IconCircleDashed, IconListSearch } from '@tabler/icons-react';
+import { Box, Text, Group, rem } from '@mantine/core';
+import { IconListSearch } from '@tabler/icons-react';
 import classes from './TableOfContentsFloating.module.css';
 import Link from 'next/link';
 import { RootState } from '@/app/store';
@@ -10,13 +10,13 @@ import { useSelector } from 'react-redux';
 
 export function TableOfContentsFloating({ onToggle }: { onToggle: () => void }) {
   const [active, setActive] = useState(0);
-  const [links, setLinks] = useState<Link[]>([]);  
+  const [links, setLinks] = useState<Link[]>([]);
 
-  const selectPage = useSelector((state: RootState) => state.selectItem.status)
+  const selectPage = useSelector((state: RootState) => state.SelectLink.value)
 
   const headerStatus = [
     { label: 'Test', status: 'done' },
-    { label: 'Encabezado 2', status: 'todo' },   
+    { label: 'Encabezado 2', status: 'todo' },
   ];
 
   type Link = {
@@ -53,13 +53,13 @@ export function TableOfContentsFloating({ onToggle }: { onToggle: () => void }) 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [links]);
 
-  
- 
+
+
 
   const items = links.map((item, index) => {
-    const status = headerStatus.find(status => status.label === item.label)?.status;  
+    const status = headerStatus.find(status => status.label === item.label)?.status;
     return (
-      <Link key={item.label} href={item.link} style={{ textDecoration: 'none'}} onClick={(e) => {
+      <Link key={item.label} href={item.link} style={{ textDecoration: 'none' }} onClick={(e) => {
         e.preventDefault();
         onToggle();
         const element = document.querySelector(item.link);
@@ -70,15 +70,15 @@ export function TableOfContentsFloating({ onToggle }: { onToggle: () => void }) 
           });
         }
       }}>
-        
+
         <Box className={cx(classes.link, { [classes.linkActive]: active === index })} style={{ paddingLeft: `calc(${item.order} * var(--mantine-spacing-md))` }} >
-        <Box style={{ display: 'flex', alignItems: 'center', fontWeight: item.order === 1 ? 500 : 'normal' }}>
-              {/* {item.order === 1 ? (status === 'done' ? <IconCircleCheck color="green" size={12} style={{ marginRight: '8px' }} /> : <IconCircleDashed color="lightgray" size={12} style={{ marginRight: '8px' }} />) : ''} */}
-              {item.order > 1 ? '● ' : ''}
-              {item.label}
-            </Box>
-          
-          
+          <Box style={{ display: 'flex', alignItems: 'center', fontWeight: item.order === 1 ? 500 : 'normal' }}>
+            {/* {item.order === 1 ? (status === 'done' ? <IconCircleCheck color="green" size={12} style={{ marginRight: '8px' }} /> : <IconCircleDashed color="lightgray" size={12} style={{ marginRight: '8px' }} />) : ''} */}
+            {item.order > 1 ? '● ' : ''}
+            {item.label}
+          </Box>
+
+
         </Box>
       </Link>
     );
@@ -93,7 +93,7 @@ export function TableOfContentsFloating({ onToggle }: { onToggle: () => void }) 
       <div className={classes.links}>
         <div
           className={classes.indicator}
-          // style={{ transform: `translateY(calc(${active} * var(--link-height) + var(--indicator-offset)))` }}
+        // style={{ transform: `translateY(calc(${active} * var(--link-height) + var(--indicator-offset)))` }}
         />
         {items}
       </div>

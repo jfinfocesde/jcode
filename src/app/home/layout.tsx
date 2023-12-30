@@ -22,7 +22,6 @@ export default function HomeLayout({
             <AppShell
                 header={{ height: 60 }}
                 navbar={{ width: 300, breakpoint: 'md', collapsed: { mobile: !navbarOpened } }}
-
                 aside={{ width: 250, breakpoint: 'md', collapsed: { mobile: !asideOpened } }}
                 footer={{ height: 40 }}
             >
@@ -46,14 +45,12 @@ export default function HomeLayout({
                     </Group>
                 </AppShell.Header>
                 <AppShell.Navbar >
-                    {/* <h1>navbar</h1> */}
                     <DoubleNavbar onToggle={toggleNavbar} />
                 </AppShell.Navbar>
                 <AppShell.Main>
                     {children}
                 </AppShell.Main>
                 <AppShell.Aside p={'sm'}>
-
                     <Sidebar onToggle={toggleAside} />
                 </AppShell.Aside>
                 <AppShell.Footer >

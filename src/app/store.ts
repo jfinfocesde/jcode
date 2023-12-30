@@ -1,15 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
-import reduxLinkSlice from './features/links/links'
+import reduxLeftSidebarLinkSlice from './features/leftSidebarLink/leftSidebarLink'
 import reduxSessionSlice from './features/session/session'
-import reduxSidebarSlice from './features/sidebar/sidebar'
-import reduxSelectItemSlice from './features/selectItem/selectItem'
+import reduxRightSidebarSlice from './features/rightSidebar/rightSidebar'
+import reduxSelectLinkSlice from './features/selectLink/selectLink'
+import reduxProfileSlice from './features/profile/profile'
 
 export const store = configureStore({
   reducer: {
-    links: reduxLinkSlice,
-    session: reduxSessionSlice,
-    sidebar: reduxSidebarSlice,
-    selectItem: reduxSelectItemSlice
+    Session: reduxSessionSlice,
+    LeftSidebarLink: reduxLeftSidebarLinkSlice,
+    SelectLink: reduxSelectLinkSlice,
+    RightSidebar: reduxRightSidebarSlice,
+    Profile: reduxProfileSlice,
   },
 })
 

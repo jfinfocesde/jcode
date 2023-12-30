@@ -13,85 +13,82 @@ export interface Database {
         Row: {
           created_at: string
           description: string | null
-          id: number
+          folder_name: string | null
+          id: string
           image_url: string | null
           name: string | null
-          route: string | null
+          sessions: string | null
         }
         Insert: {
           created_at?: string
           description?: string | null
-          id?: number
+          folder_name?: string | null
+          id?: string
           image_url?: string | null
           name?: string | null
-          route?: string | null
+          sessions?: string | null
         }
         Update: {
           created_at?: string
           description?: string | null
-          id?: number
+          folder_name?: string | null
+          id?: string
           image_url?: string | null
           name?: string | null
-          route?: string | null
+          sessions?: string | null
         }
         Relationships: []
       }
       groups: {
         Row: {
+          block_registration: boolean | null
           code: string | null
           created_at: string
           description: string | null
-          id: number
+          id: string
           name: string | null
-          register: boolean | null
         }
         Insert: {
+          block_registration?: boolean | null
           code?: string | null
           created_at?: string
           description?: string | null
-          id?: number
+          id?: string
           name?: string | null
-          register?: boolean | null
         }
         Update: {
+          block_registration?: boolean | null
           code?: string | null
           created_at?: string
           description?: string | null
-          id?: number
+          id?: string
           name?: string | null
-          register?: boolean | null
         }
         Relationships: []
       }
       profiles: {
         Row: {
           avatar_url: string | null
+          block: boolean | null
           full_name: string | null
-          group_id: number | null
+          group_id: string | null
           id: string
-          lock: boolean | null
-          role: string | null
-          routes: string | null
           updated_at: string | null
         }
         Insert: {
           avatar_url?: string | null
+          block?: boolean | null
           full_name?: string | null
-          group_id?: number | null
+          group_id?: string | null
           id: string
-          lock?: boolean | null
-          role?: string | null
-          routes?: string | null
           updated_at?: string | null
         }
         Update: {
           avatar_url?: string | null
+          block?: boolean | null
           full_name?: string | null
-          group_id?: number | null
+          group_id?: string | null
           id?: string
-          lock?: boolean | null
-          role?: string | null
-          routes?: string | null
           updated_at?: string | null
         }
         Relationships: [
@@ -107,6 +104,74 @@ export interface Database {
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: string | null
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          role?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "roles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      user_courses: {
+        Row: {
+          check_date: boolean | null
+          course_id: string | null
+          created_at: string
+          id: string
+          profile_id: string | null
+          sessions_date: string | null
+        }
+        Insert: {
+          check_date?: boolean | null
+          course_id?: string | null
+          created_at?: string
+          id?: string
+          profile_id?: string | null
+          sessions_date?: string | null
+        }
+        Update: {
+          check_date?: boolean | null
+          course_id?: string | null
+          created_at?: string
+          id?: string
+          profile_id?: string | null
+          sessions_date?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_courses_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_courses_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           }
         ]
