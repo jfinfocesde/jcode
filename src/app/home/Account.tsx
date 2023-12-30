@@ -108,7 +108,7 @@ export default function Account({ session }: { session: Session | null }) {
 
   return (
     <>
-      {profile}
+      {/* {profile} */}
       <HeroBullets />
     </>
   )
