@@ -39,6 +39,48 @@ export interface Database {
         }
         Relationships: []
       }
+      group_course: {
+        Row: {
+          check_date: boolean | null
+          course_id: string | null
+          created_at: string
+          group_id: string | null
+          id: string
+          sessions_date: string | null
+        }
+        Insert: {
+          check_date?: boolean | null
+          course_id?: string | null
+          created_at?: string
+          group_id?: string | null
+          id?: string
+          sessions_date?: string | null
+        }
+        Update: {
+          check_date?: boolean | null
+          course_id?: string | null
+          created_at?: string
+          group_id?: string | null
+          id?: string
+          sessions_date?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_course_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_course_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       groups: {
         Row: {
           block_registration: boolean | null
@@ -71,7 +113,6 @@ export interface Database {
           avatar_url: string | null
           block: boolean | null
           full_name: string | null
-          group_id: string | null
           id: string
           updated_at: string | null
         }
@@ -79,7 +120,6 @@ export interface Database {
           avatar_url?: string | null
           block?: boolean | null
           full_name?: string | null
-          group_id?: string | null
           id: string
           updated_at?: string | null
         }
@@ -87,18 +127,10 @@ export interface Database {
           avatar_url?: string | null
           block?: boolean | null
           full_name?: string | null
-          group_id?: string | null
           id?: string
           updated_at?: string | null
         }
         Relationships: [
-          {
-            foreignKeyName: "profiles_group_id_fkey"
-            columns: ["group_id"]
-            isOneToOne: false
-            referencedRelation: "groups"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "profiles_id_fkey"
             columns: ["id"]
@@ -129,49 +161,43 @@ export interface Database {
             foreignKeyName: "roles_id_fkey"
             columns: ["id"]
             isOneToOne: true
-            referencedRelation: "profiles"
+            referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]
       }
-      user_courses: {
+      user_group: {
         Row: {
-          check_date: boolean | null
-          course_id: string | null
           created_at: string
+          group_id: string | null
           id: string
-          profile_id: string | null
-          sessions_date: string | null
+          user_id: string | null
         }
         Insert: {
-          check_date?: boolean | null
-          course_id?: string | null
           created_at?: string
+          group_id?: string | null
           id?: string
-          profile_id?: string | null
-          sessions_date?: string | null
+          user_id?: string | null
         }
         Update: {
-          check_date?: boolean | null
-          course_id?: string | null
           created_at?: string
+          group_id?: string | null
           id?: string
-          profile_id?: string | null
-          sessions_date?: string | null
+          user_id?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "user_courses_course_id_fkey"
-            columns: ["course_id"]
+            foreignKeyName: "user_group_group_id_fkey"
+            columns: ["group_id"]
             isOneToOne: false
-            referencedRelation: "courses"
+            referencedRelation: "groups"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "user_courses_profile_id_fkey"
-            columns: ["profile_id"]
+            foreignKeyName: "user_group_user_id_fkey"
+            columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "profiles"
+            referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]

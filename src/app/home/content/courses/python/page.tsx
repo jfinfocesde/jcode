@@ -19,7 +19,7 @@ const MENU: typeLeftSidebarLink = {
 
 export default function page() {
   return (
-    <RenderMdx PAGES={PAGES} MENU={MENU} />
+    <RenderMdx PAGES={PAGES}  />
   )
 }
 

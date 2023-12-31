@@ -11,56 +11,71 @@ import { ArticleCard, typeArticleCard } from '../../ArticleCard/ArticleCard/Arti
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '@/types/supabase/supabase';
 import { useEffect, useState } from 'react';
-
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
+// type typeUserCourses = Database['public']['Tables']['user_courses']['Row']
 
 export function FeaturesCards() {
 
   const supabase = createClientComponentClient<Database>()
   const [courses, setCourses] = useState<typeArticleCard[]>([])
+  const currentsession = useSelector((state: RootState) => state.Session.currentSession)
+  const user = currentsession?.user
 
   useEffect(() => {
 
-    async function getCourses() {
-      try {
-        let { data: courses, error } = await supabase
-          .from('courses')
-          .select("*")
-
-        if (error) throw error;
-
-        if (courses && courses.length > 0) {
-          const data = courses.map((item) => {
-            const temp: typeArticleCard = {
-              title: item.name,
-              description: item.description,
-              folder_name: item.folder_name,
-              image_url: item.image_url
+    async function geCourses() {
+      if (user) {
+        try {
+          let { data: groups, error } = await supabase
+            .from('user_group')
+            .select(`*,groups(*)`)
+            .eq('user_id', user?.id)
+          if (error) throw error;
+          if (groups && groups.length > 0) {           
+            const tempGroups = JSON.stringify(groups)
+            const jsonGroups = JSON.parse(tempGroups)
+            let { data: courses, error } = await supabase
+              .from('group_course')
+              .select(`*,courses(*)`)
+              .eq('group_id', jsonGroups[0].groups.id)
+            if (error) throw error;
+            if (courses && courses.length > 0) {
+              const tempCourses = JSON.stringify(courses)
+              const jsonCourses = JSON.parse(tempCourses) 
+              const dataArticleCard:typeArticleCard[]=[]
+              jsonCourses.map((item: { courses: { name: any; description: any; folder_name: any; image_url: any; }; }) => {                
+                if (item.courses) {
+                  const tempArticleCard: typeArticleCard = {
+                    title: item.courses.name,
+                    description: item.courses.description,
+                    folder_name: item.courses.folder_name,
+                    image_url: item.courses.image_url
+                  }
+                  dataArticleCard.push(tempArticleCard) 
+                }                
+              })
+              setCourses(dataArticleCard)
             }
-            return temp
-          })
-
-          setCourses(data)
-        }
-        else {
+          }
+        } catch (error) {
 
         }
-      } catch (error) {
-
-      } finally {
-
       }
     }
-    getCourses();
+    geCourses()   
 
   }, [])
 
-  const features = courses.map((feature) => (
-    <ArticleCard data={{
-      title: feature.title,
-      description: feature.description,
-      folder_name: feature.folder_name,
-      image_url: feature.image_url,
-    }} />
+  const features = courses.map((feature, index) => (
+    <div key={index}>
+      <ArticleCard data={{
+        title: feature.title,
+        description: feature.description,
+        folder_name: feature.folder_name,
+        image_url: feature.image_url,
+      }} />
+    </div>
   ));
 
   return (

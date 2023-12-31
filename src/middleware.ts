@@ -1,29 +1,42 @@
 import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+// import { Database } from './types/supabase/supabase'
+//  type typeCourses = Database['public']['Tables']['groups']['Row']
+// type typeUserCourses = Database['public']['Tables']['user_group']['Row']
 
-type Course = {
-  name: string;
-  datetime: boolean;
-  sessions: { title: string; datetime: string }[];
-};
 
-type typeProfile = {
-  avatar_url: string | null
-  block: boolean | null
-  full_name: string | null
-  group_id: string | null
-  id: string
-  updated_at: string | null
+type typeCourses = {
+  check_date: boolean | null;
+  course_id: string | null;
+  created_at: string;
+  group_id: string | null;
+  id: string;
+  sessions_date: string | null;
+  courses: {
+    created_at: string;
+    description: string | null;
+    folder_name: string | null;
+    id: string;
+    image_url: string | null;
+    name: string | null;
+    sessions: string | null;
+  }
 }
 
-type typeUserCourses = {
-  check_date: boolean | null
-  course_id: string | null
-  created_at: string
-  id: string
-  profile_id: string | null
-  sessions_date: string | null
+type typeGroups = {
+  created_at: string;
+  group_id: string | null;
+  id: string;
+  user_id: string | null;
+  groups: {
+    block_registration: boolean | null;
+    code: string | null;
+    created_at: string;
+    description: string | null;
+    id: string;
+    name: string | null;
+  }
 }
 
 
@@ -32,6 +45,11 @@ export async function middleware(req: NextRequest) {
   const supabase = createMiddlewareClient({ req, res })
   let userblock = false;
 
+  /* The code `const { data: { user } } = await supabase.auth.getUser()` is retrieving the currently
+  authenticated user from the Supabase authentication service. It is using the `getUser()` method
+  provided by the `supabase.auth` object to fetch the user data. The `data` property of the response
+  contains the user object, and the destructuring assignment is used to extract the `user` property
+  from the `data` object. */
   const {
     data: { user },
   } = await supabase.auth.getUser()
@@ -54,107 +72,49 @@ export async function middleware(req: NextRequest) {
     return false
   }
 
-  async function statusUserBlock(): Promise<boolean> {
+  async function getFolderName() {
     try {
-      let { data: profiles, error } = await supabase
-        .from('profiles')
-        .select("*")
-        .eq('id', user?.id)
+      let { data: groups, error } = await supabase
+        .from('user_group')
+        .select(`*,groups(*)`)
+        .eq('user_id', user?.id)
       if (error) throw error;
-      if (profiles && profiles.length > 0) {
-        if (profiles[0].block) {
-          return true
-        }
-      }
-    } catch (error) {
-      return false
-    }
-    return false
-  }
-
-  async function getIdCourses(): Promise<string[]> {
-    try {
-      let { data: user_courses, error } = await supabase
-        .from('user_courses')
-        .select("*")
-        .eq('profile_id', user?.id)
-      if (error) throw error;
-      if (user_courses && user_courses.length > 0) {
-        const data: typeUserCourses[] = user_courses
-        let idCourses: string[] = []
-        data.map((course) => {
-          if (course.course_id) {
-            idCourses.push(course.course_id)
+      if (groups && groups.length > 0) {
+        // console.log(group);
+        const jsonGropus: typeGroups[] = groups
+        let { data: courses, error } = await supabase
+          .from('group_course')
+          .select(`*,courses(*)`)
+          .eq('group_id', jsonGropus[0].groups.id)
+        if (error) throw error;
+        if (courses && courses.length > 0) {
+          const jsonCourses: typeCourses[] = courses
+          console.log(jsonCourses);
+          let folderNameCourses: string[] = []
+          jsonCourses.map((course) => {
+            if (course.courses.folder_name) {
+              folderNameCourses.push(course.courses.folder_name)
+            }
+          })
+          const path = req.nextUrl.pathname;
+          if (path.includes('/home/content/courses/')) {
+            const segments = path.split('/');
+            const lastSegment = segments[segments.length - 1];
+            if (!folderNameCourses.includes(lastSegment))
+              userblock = true
           }
-        })
-        return idCourses
+        }       
       }
     } catch (error) {
-      return []
-    }
-    return []
+      
+    }   
   }
-
-
-  async function getNamesCourses(idCourses: string[]) {
-    try {
-      let { data: courses, error } = await supabase
-        .from('courses')
-        .select("*")
-        .in('id', idCourses)
-      if (error) throw error;
-      if (courses && courses.length > 0) {
-        const data: typeUserCourses[] = courses
-        console.log(data);
-      }
-    } catch (error) {
-      return []
-    }
-  }
-
+ 
   if (user) {
-    // const admin: boolean = await adminCheck()
-    // userblock = await statusUserBlock()
-    // const idCourses = await getIdCourses()
-    // console.log(idCourses);
-    // getNamesCourses()
-
-    // if (!admin) {
-      // userblock = await statusUserBlock()
-
-      // getCourses()
-
-
-      // try {
-      //   let { data: profiles, error } = await supabase
-      //     .from('profiles')
-      //     .select("*")
-      //     .eq('id', user?.id)
-      //   if (error) throw error;
-      //   if (profiles && profiles.length > 0) {
-      //     const userLock: boolean = profiles[0].block
-      //     const colCourses = JSON.parse(profiles[0].courses)
-      //     const listcourses: Course[] = colCourses.courses
-      //     const courses = listcourses.map((item) => {
-      //       return item.name;
-      //     });
-      //     if (!userLock) {
-      //       const path = req.nextUrl.pathname;
-      //       if (path.includes('/home/content/courses/')) {
-      //         const segments = path.split('/');
-      //         const lastSegment = segments[segments.length - 1];
-      //         if (!courses.includes(lastSegment))
-      //           userblock = true
-      //       }
-      //     }
-      //   }
-      //   else {
-      //     userblock = true
-      //   }
-      // } catch (error) {
-      //   console.log(error);
-      // }
-    // }
+    const admin: boolean = await adminCheck()
+    if (!admin) {
+       await getFolderName()     
+    }
   }
 
   // if user is signed in and the current path is / redirect the user to /account
@@ -180,8 +140,6 @@ export async function middleware(req: NextRequest) {
       return res
     }
   }
-
-
 }
 
 export const config = {

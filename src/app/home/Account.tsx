@@ -6,11 +6,8 @@ import { reduxUpdateSession } from '../features/session/session';
 import { HeroBullets } from './components/HeroBullets/HeroBullets';
 import { reduxSetLeftSidebarLink } from '../features/leftSidebarLink/leftSidebarLink';
 
-import { useEffect } from 'react';
 import { Database } from '@/types/supabase/supabase';
 import { RootState } from '../store';
-import { reduxSetProfile } from '../features/profile/profile';
-
 
 type Course = {
   name: string;
