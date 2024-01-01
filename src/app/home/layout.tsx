@@ -1,5 +1,5 @@
 'use client'
-import { AppShell, Burger, Group } from "@mantine/core";
+import { AppShell, Burger, Center, Group, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { ActionToggle } from "./components/ActionToggle/ActionToggle";
 import { DoubleNavbar } from "./components/DoubleNavbar/DoubleNavbar/DoubleNavbar";
@@ -48,7 +48,7 @@ export default function HomeLayout({
                         </Group>
                     </AppShell.Header>
                     <AppShell.Navbar >
-                        <DoubleNavbar onToggle={toggleNavbar} setAside={setAside}/>
+                        <DoubleNavbar onToggle={toggleNavbar} setAside={setAside} />
                     </AppShell.Navbar>
                     <AppShell.Main>
                         {children}
@@ -63,7 +63,7 @@ export default function HomeLayout({
             ) : (
                 <AppShell
                     header={{ height: 60 }}
-                    navbar={{ width: 300, breakpoint: 'md', collapsed: { mobile: !navbarOpened } }}                   
+                    navbar={{ width: 300, breakpoint: 'md', collapsed: { mobile: !navbarOpened } }}
                     footer={{ height: 40 }}
                 >
                     <AppShell.Header>
@@ -86,13 +86,15 @@ export default function HomeLayout({
                         </Group>
                     </AppShell.Header>
                     <AppShell.Navbar >
-                        <DoubleNavbar onToggle={toggleNavbar} setAside={setAside}/>
+                        <DoubleNavbar onToggle={toggleNavbar} setAside={setAside} />
                     </AppShell.Navbar>
                     <AppShell.Main>
                         {children}
-                    </AppShell.Main>                    
+                    </AppShell.Main>
                     <AppShell.Footer >
-
+                        <Center>
+                            <Text size="xs">V1.0</Text>
+                        </Center>
                     </AppShell.Footer>
                 </AppShell>
             )}
