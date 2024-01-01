@@ -78,10 +78,10 @@ export default function HomeLayout({
                             <Group h="100%" px="sm">
                                 {/* Resto de los elementos del grupo */}
                                 <ActionToggle />
-                                <Burger opened={asideOpened} onClick={(event) => {
+                                {/* <Burger opened={asideOpened} onClick={(event) => {
                                     event.preventDefault()
                                     toggleAside()
-                                }} hiddenFrom="md" size="sm" />
+                                }} hiddenFrom="md" size="sm" /> */}
                             </Group>
                         </Group>
                     </AppShell.Header>
