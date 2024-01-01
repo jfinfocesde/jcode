@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { UnstyledButton, Tooltip, rem, Center } from '@mantine/core';
 import {
   IconHome2,
@@ -15,19 +15,18 @@ import type { RootState } from '../../../../store'
 import { useRouter } from 'next/navigation'
 
 import { UserButton } from '../../UserButton/UserButton';
-
 import { User } from '@supabase/supabase-js';
 import { reduxSetLeftSidebarLink } from '@/app/features/leftSidebarLink/leftSidebarLink';
 import { reduxSetSelectLink } from '@/app/features/selectLink/selectLink';
 import { reduxSetRightSidebar } from '@/app/features/rightSidebar/rightSidebar';
 
 const linksLeftSidebarIcon = [
-  { icon: IconHome2, label: 'Inicio', route: '/home', sisdebar: "home" },
-  { icon: IconCertificate, label: 'Cursos', route: '/home/content/courses', sisdebar: "courses" },
-  { icon: IconSettings, label: 'Settings', route: '/home/pages/settings', sisdebar: "courses" },
+  { icon: IconHome2, label: 'Inicio', route: '/home' },
+  { icon: IconCertificate, label: 'Cursos', route: '/home/content/courses' },
+  { icon: IconSettings, label: 'Settings', route: '/home/pages/settings' },
 ];
 
-export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
+export function DoubleNavbar({ onToggle, setAside }: { onToggle: () => void, setAside: Dispatch<SetStateAction<boolean>> }) {
   const [activeIcon, setActive] = useState('Inicio');
   const [activeLink, setActiveLink] = useState('Inicio');
   const router = useRouter()
@@ -36,15 +35,28 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
   const [user, setUser] = useState<User | undefined>(undefined);
   const currentsession = useSelector((state: RootState) => state.Session.currentSession)
   const linksLeftSidebar = useSelector((state: RootState) => state.LeftSidebarLink.links)
+  const selectSidebar = useSelector((state: RootState) => state.RightSidebar.value)
 
   useEffect(() => {
     if (currentsession) {
-      setUser(currentsession?.user)  
+      setUser(currentsession?.user)
     }
-    else {          
+    else {
       router.push('/home')
     }
+    if (selectSidebar == "none") {
+      setAside(false)
+    }
   }, [currentsession])
+
+  useEffect(() => {
+    if (selectSidebar == "none") {
+      setAside(false)
+    }
+    if (selectSidebar == "courses") {
+      setAside(true)
+    }
+  }, [selectSidebar])
 
   const linksIcon = linksLeftSidebarIcon.map((link) => (
     <Tooltip
@@ -58,7 +70,7 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
         onClick={() => {
           try {
             onToggle()
-            dispatch(reduxSetRightSidebar(link.sisdebar))
+            dispatch(reduxSetRightSidebar('none'))
             switch (link.label) {
               case 'Incio':
                 dispatch(reduxSetLeftSidebarLink({ name: "Inicio", links: [] }))
@@ -119,7 +131,7 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
           gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
         >
           {activeIcon}
-        </Text>       
+        </Text>
       </Center>
       <div className={classes.footer}>
         <UnstyledButton className={classes.user}
@@ -132,8 +144,8 @@ export function DoubleNavbar({ onToggle }: { onToggle: () => void }) {
             name={user ? user.user_metadata.name : ""}
             email={user ? user.email : ""}
             avatar={user ? user.user_metadata.avatar_url : ""} />
-
         </UnstyledButton>
+
 
       </div>
       <div className={classes.wrapper}>

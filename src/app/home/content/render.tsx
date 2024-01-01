@@ -14,6 +14,8 @@ import { reduxSetSelectLink } from "@/app/features/selectLink/selectLink";
 import { Database } from "@/types/supabase/supabase";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { usePathname } from "next/navigation";
+import { NavigationProgress, nprogress } from "@mantine/nprogress";
+import { reduxSetRightSidebar } from "@/app/features/rightSidebar/rightSidebar";
 
 type typeCourses = Database['public']['Tables']['courses']['Row']
 type typeUserGroup = Database['public']['Tables']['user_group']['Row']
@@ -27,11 +29,15 @@ const components = {
 }
 
 export default function RenderMdx({ PAGES }: { PAGES: JSX.Element[] }) {
-    // export default function RenderMdx({ PAGES, MENU }: { PAGES: JSX.Element[], MENU: typeLeftSidebarLink }) {
 
     const supabase = createClientComponentClient<Database>()
     const currentsession = useSelector((state: RootState) => state.Session.currentSession)
     const user = currentsession?.user
+
+    const selectPage = useSelector((state: RootState) => state.SelectLink.value)
+    const dispatch = useDispatch()
+    const page = PAGES[selectPage];
+    const { width } = useViewportSize();
 
     const path = usePathname()
     const segments = path.split('/');
@@ -39,7 +45,8 @@ export default function RenderMdx({ PAGES }: { PAGES: JSX.Element[] }) {
     const [nameCourse, setNameCourse] = useState('')
 
     useEffect(() => {
-
+        dispatch(reduxSetRightSidebar('courses'))
+        nprogress.start()
         function isValidDate(date: string) {
             const currentDate = new Date();
             currentDate.setHours(0, 0, 0, 0);
@@ -51,41 +58,6 @@ export default function RenderMdx({ PAGES }: { PAGES: JSX.Element[] }) {
                 return false;
             }
         }
-
-
-        // async function getCourse() {
-        //     if (user) {
-        //         try {
-        //             let { data: courses, error } = await supabase
-        //                 .from('courses')
-        //                 .select("*")
-        //                 .eq("folder_name", lastSegment)
-        //             if (error) throw error;
-        //             if (courses && courses.length > 0) {
-        //                 // console.log(groups);
-        //                 const tempGroups = JSON.stringify(groups)
-        //                 const jsonGroups = JSON.parse(tempGroups)
-        //                 let { data: courses, error } = await supabase
-        //                     .from('group_course')
-        //                     .select(`*,courses(*)`)
-        //                     .eq('group_id', jsonGroups[0].groups.id)
-        //                     .eq('user_id', user.id)
-        //                 if (error) throw error;
-        //                 if (courses && courses.length > 0) {
-        //                     const tempCourses = JSON.stringify(courses)
-        //                     const jsonCourses = JSON.parse(tempCourses)
-        //                     console.log(jsonCourses);
-
-
-        //                 }
-        //             }
-        //         } catch (error) {
-
-        //         }
-        //     }
-        // }
-
-
 
         async function getCourse() {
             if (user) {
@@ -114,11 +86,7 @@ export default function RenderMdx({ PAGES }: { PAGES: JSX.Element[] }) {
                                 if (error) throw error;
                                 if (group_course && group_course.length > 0) {
                                     const dataGroupCourse: typeGroupCourse[] = group_course
-                                    console.log(dataGroupCourse);
-
-
                                     if (dataCourses[0].name && dataCourses[0].sessions && dataGroupCourse[0].sessions_date) {
-                                       
                                         const nameCourse = dataCourses[0].name
                                         const check_date = dataGroupCourse[0].check_date
                                         const sessions = JSON.parse(dataCourses[0].sessions)
@@ -131,7 +99,6 @@ export default function RenderMdx({ PAGES }: { PAGES: JSX.Element[] }) {
                                                 const res = isValidDate(testDate)
                                                 if (res) {
                                                     dataMenu.push(sessions[index])
-                                                    console.log(sessions[index]);
                                                 }
                                             }
                                             const MENU: typeLeftSidebarLink = {
@@ -140,6 +107,7 @@ export default function RenderMdx({ PAGES }: { PAGES: JSX.Element[] }) {
                                             }
                                             dispatch(reduxSetLeftSidebarLink(MENU));
                                             dispatch(reduxSetSelectLink(0))
+                                            nprogress.complete()
                                         }
                                         else {
                                             const MENU: typeLeftSidebarLink = {
@@ -148,6 +116,7 @@ export default function RenderMdx({ PAGES }: { PAGES: JSX.Element[] }) {
                                             }
                                             dispatch(reduxSetLeftSidebarLink(MENU));
                                             dispatch(reduxSetSelectLink(0))
+                                            nprogress.complete()
                                         }
                                     }
 
@@ -162,81 +131,8 @@ export default function RenderMdx({ PAGES }: { PAGES: JSX.Element[] }) {
                 }
             }
         }
-
-
-
-        // async function getMenu() {
-        //     if (user) {
-        //         try {
-        //             let { data: courses, error } = await supabase
-        //                 .from('courses')
-        //                 .select("*")
-        //                 .eq("folder_name", lastSegment)
-        //             if (error) throw error;
-        //             if (courses && courses.length > 0) {
-        //                 const dataCourses: typeCourses[] = courses
-        //                 if (dataCourses[0].name && dataCourses[0].sessions) {
-        //                     let { data: data, error } = await supabase
-        //                         .from('user_courses')
-        //                         .select(`*,courses(*)`)
-        //                         .eq("profile_id", user.id)
-        //                         .eq("course_id", dataCourses[0].id)
-        //                     if (error) throw error;
-        //                     if (data && data.length > 0) {
-        //                         const temp: typeJoin[] = data
-        //                         const jsonData = temp[0]
-        //                         if (jsonData.courses?.name && jsonData.courses?.sessions) {
-        //                             setNameCourse(jsonData.courses?.name)
-        //                             if (jsonData.check_date) {
-        //                                 let dataMenu: string[] = []
-        //                                 if (jsonData.sessions_date) {
-        //                                     const sessions: string[] = JSON.parse(jsonData.courses?.sessions)
-        //                                     const sessions_date: string[] = JSON.parse(jsonData.sessions_date)
-        //                                     for (let index = 0; index < sessions.length; index++) {
-        //                                         const testDate = sessions_date[index]
-        //                                         const res = isValidDate(testDate)
-        //                                         if (res) {
-        //                                             dataMenu.push(sessions[index])
-        //                                             console.log(sessions[index]);
-        //                                         }
-        //                                     }
-        //                                 }
-        //                                 const MENU: typeLeftSidebarLink = {
-        //                                     name: jsonData.courses?.name,
-        //                                     links: dataMenu
-        //                                 }
-        //                                 dispatch(reduxSetLeftSidebarLink(MENU));
-        //                                 dispatch(reduxSetSelectLink(0))
-        //                             }
-        //                             else {
-        //                                 const MENU: typeLeftSidebarLink = {
-        //                                     name: jsonData.courses?.name,
-        //                                     links: JSON.parse(jsonData.courses?.sessions)
-        //                                 }
-        //                                 dispatch(reduxSetLeftSidebarLink(MENU));
-        //                                 dispatch(reduxSetSelectLink(0))
-        //                             }
-        //                         }
-        //                     }
-        //                 }
-        //             }
-        //         } catch (error) {
-
-        //         }
-        //     }
-        // }
         getCourse();
     }, [])
-
-
-    const selectPage = useSelector((state: RootState) => state.SelectLink.value)
-    const dispatch = useDispatch()
-    // useEffect(() => {
-    //     dispatch(reduxSetLeftSidebarLink(MENU));
-    //     dispatch(reduxSetSelectLink(0))
-    // }, [dispatch]);
-    const page = PAGES[selectPage];
-    const { width } = useViewportSize();
 
     const scrollToTop = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -244,42 +140,44 @@ export default function RenderMdx({ PAGES }: { PAGES: JSX.Element[] }) {
     };
 
     return (
-        <MDXProvider components={components}>
-            <Paper w={{ base: '100%', md: `${width - 564}px` }} className={classes.toolBar} >
-                {/* Tus elementos de navegación van aquí */}
-                <Group justify="space-between" h="100%">
-                    <Group justify="center" ml={'lg'}>
-                        <Text size="md" fw={700} variant="gradient"
-                            gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-                            style={{ maxWidth: '400px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                            {nameCourse}
-                        </Text>
-                    </Group>
-                    <Group justify="flex-end" pr={'md'}>
-                        <Tooltip
-                            label={"Ir al inicio"}
-                            position="right"
-                            withArrow
-                            transitionProps={{ duration: 0 }}
-                        >
-                            <ActionIcon
-                                size="sm"
-                                radius="sm"
-                                variant="default"
-                                color="blue"
-                                onClick={scrollToTop}
-                            // style={{ position: 'fixed', top: '80px', right: '280px', zIndex: 200 }}
+        <>
+            <NavigationProgress />
+            <MDXProvider components={components}>
+                <Paper w={{ base: '100%', md: `${width - 564}px` }} className={classes.toolBar} >
+                    {/* Tus elementos de navegación van aquí */}
+                    <Group justify="space-between" h="100%">
+                        <Group justify="center" ml={'lg'}>
+                            <Text size="md" fw={700} variant="gradient"
+                                gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+                                style={{ maxWidth: '400px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                {nameCourse}
+                            </Text>
+                        </Group>
+                        <Group justify="flex-end" pr={'md'}>
+                            <Tooltip
+                                label={"Ir al inicio"}
+                                position="right"
+                                withArrow
+                                transitionProps={{ duration: 0 }}
                             >
-                                <IconCaretUpFilled size={12} />
-                            </ActionIcon>
-                        </Tooltip>
+                                <ActionIcon
+                                    size="sm"
+                                    radius="sm"
+                                    variant="default"
+                                    color="blue"
+                                    onClick={scrollToTop}
+                                >
+                                    <IconCaretUpFilled size={12} />
+                                </ActionIcon>
+                            </Tooltip>
+                        </Group>
                     </Group>
-                </Group>
-            </Paper>
-            <Paper pl={'md'} pr={'md'} pb={'md'} pt={'xl'}>
-                {page}
-            </Paper>
-        </MDXProvider>
+                </Paper>
+                <Paper pl={'md'} pr={'md'} pb={'md'} pt={'xl'}>
+                    {page}
+                </Paper>
+            </MDXProvider>
+        </>
     );
 }
 

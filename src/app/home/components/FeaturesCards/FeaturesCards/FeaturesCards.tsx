@@ -13,7 +13,7 @@ import { Database } from '@/types/supabase/supabase';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
-// type typeUserCourses = Database['public']['Tables']['user_courses']['Row']
+import { NavigationProgress, nprogress } from '@mantine/nprogress';
 
 export function FeaturesCards() {
 
@@ -23,7 +23,7 @@ export function FeaturesCards() {
   const user = currentsession?.user
 
   useEffect(() => {
-
+    nprogress.start()
     async function geCourses() {
       if (user) {
         try {
@@ -32,7 +32,7 @@ export function FeaturesCards() {
             .select(`*,groups(*)`)
             .eq('user_id', user?.id)
           if (error) throw error;
-          if (groups && groups.length > 0) {           
+          if (groups && groups.length > 0) {
             const tempGroups = JSON.stringify(groups)
             const jsonGroups = JSON.parse(tempGroups)
             let { data: courses, error } = await supabase
@@ -42,9 +42,9 @@ export function FeaturesCards() {
             if (error) throw error;
             if (courses && courses.length > 0) {
               const tempCourses = JSON.stringify(courses)
-              const jsonCourses = JSON.parse(tempCourses) 
-              const dataArticleCard:typeArticleCard[]=[]
-              jsonCourses.map((item: { courses: { name: any; description: any; folder_name: any; image_url: any; }; }) => {                
+              const jsonCourses = JSON.parse(tempCourses)
+              const dataArticleCard: typeArticleCard[] = []
+              jsonCourses.map((item: { courses: { name: any; description: any; folder_name: any; image_url: any; }; }) => {
                 if (item.courses) {
                   const tempArticleCard: typeArticleCard = {
                     title: item.courses.name,
@@ -52,10 +52,11 @@ export function FeaturesCards() {
                     folder_name: item.courses.folder_name,
                     image_url: item.courses.image_url
                   }
-                  dataArticleCard.push(tempArticleCard) 
-                }                
+                  dataArticleCard.push(tempArticleCard)
+                }
               })
               setCourses(dataArticleCard)
+              nprogress.complete()
             }
           }
         } catch (error) {
@@ -63,9 +64,10 @@ export function FeaturesCards() {
         }
       }
     }
-    geCourses()   
+    geCourses()
 
   }, [])
+
 
   const features = courses.map((feature, index) => (
     <div key={index}>
@@ -79,24 +81,27 @@ export function FeaturesCards() {
   ));
 
   return (
-    <Container size="md" py="xl">
-      <Group justify="center">
-        <Badge variant="filled" size="lg">
-          Bienvenidos
-        </Badge>
-      </Group>
+    <>
+      <NavigationProgress />
+      <Container size="md" py="xl">
+        <Group justify="center">
+          <Badge variant="filled" size="lg">
+            Bienvenidos
+          </Badge>
+        </Group>
 
-      <Title order={2} className={classes.title} ta="center" mt="sm">
-        Cursos Disponibles
-      </Title>
+        <Title order={2} className={classes.title} ta="center" mt="sm">
+          Cursos Disponibles
+        </Title>
 
-      <Text c="dimmed" className={classes.description} ta="center" mt="md">
-        Descubre los cursos disponibles y comienza tu viaje de aprendizaje.
-      </Text>
+        <Text c="dimmed" className={classes.description} ta="center" mt="md">
+          Descubre los cursos disponibles y comienza tu viaje de aprendizaje.
+        </Text>
 
-      <SimpleGrid cols={{ base: 1, md: 2, lg: 3 }} spacing="xl" mt={50}>
-        {features}
-      </SimpleGrid>
-    </Container>
+        <SimpleGrid cols={{ base: 1, md: 2, lg: 3 }} spacing="xl" mt={50}>
+          {features}
+        </SimpleGrid>
+      </Container>
+    </>
   );
 }

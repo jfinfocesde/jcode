@@ -172,6 +172,7 @@ export default function page() {
                   <Text fw={700} size='lg' ta="center" m={0}>
                     Registrarse
                   </Text>
+                  
 
                   <Auth
                     supabaseClient={supabase}

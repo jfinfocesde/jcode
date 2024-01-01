@@ -38,8 +38,7 @@ export default function page() {
     if (editor) {
       const json = editor.getJSON()
       const html = editor.getHTML()
-      setValue(convertToMarkdown(json))
-      console.log(json);
+      setValue(convertToMarkdown(json))     
     }
   }
 

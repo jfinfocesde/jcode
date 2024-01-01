@@ -5,7 +5,7 @@ interface typeRightSidebar {
 }
 
 const initialState: typeRightSidebar = {
-    value: 'home'
+    value: 'none'
 };
 
 export const reduxRightSidebarSlice = createSlice({

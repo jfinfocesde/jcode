@@ -12,6 +12,8 @@
     "@code-hike/mdx": "^0.9.0",
     "@mantine/core": "^7.3.2",
     "@mantine/hooks": "^7.3.2",
+    "@mantine/notifications": "^7.3.2",
+    "@mantine/nprogress": "^7.3.2",
     "@mantine/tiptap": "^7.3.2",
     "@mantinex/mantine-logo": "^1.0.1",
     "@mdx-js/loader": "^3.0.0",

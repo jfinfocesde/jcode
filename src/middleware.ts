@@ -66,6 +66,9 @@ export async function middleware(req: NextRequest) {
         if (roles[0].role == "admin")
           return true
       }
+      else{
+        userblock = true
+      }
     } catch (error) {
       return false
     }
@@ -79,8 +82,7 @@ export async function middleware(req: NextRequest) {
         .select(`*,groups(*)`)
         .eq('user_id', user?.id)
       if (error) throw error;
-      if (groups && groups.length > 0) {
-        // console.log(group);
+      if (groups && groups.length > 0) {     
         const jsonGropus: typeGroups[] = groups
         let { data: courses, error } = await supabase
           .from('group_course')
@@ -88,8 +90,7 @@ export async function middleware(req: NextRequest) {
           .eq('group_id', jsonGropus[0].groups.id)
         if (error) throw error;
         if (courses && courses.length > 0) {
-          const jsonCourses: typeCourses[] = courses
-          console.log(jsonCourses);
+          const jsonCourses: typeCourses[] = courses        
           let folderNameCourses: string[] = []
           jsonCourses.map((course) => {
             if (course.courses.folder_name) {
@@ -116,16 +117,6 @@ export async function middleware(req: NextRequest) {
        await getFolderName()     
     }
   }
-
-  // if user is signed in and the current path is / redirect the user to /account
-  // if (user && req.nextUrl.pathname === '/') {
-  //   if (!userblock) {
-  //     return NextResponse.redirect(new URL('/home', req.url))
-  //   }    
-  //   else{
-  //     return NextResponse.redirect(new URL('/', req.url))
-  //   }
-
 
   // if user is not signed in and the current path is not / redirect the user to /
   if (!user && req.nextUrl.pathname !== '/') {
