@@ -4,6 +4,7 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import Account from './Account'
 
+
 export default async function page() {  
   const cookieStore = cookies()
   const supabase = createServerComponentClient({ cookies: () => cookieStore })

@@ -23,7 +23,7 @@ import { reduxSetRightSidebar } from '@/app/features/rightSidebar/rightSidebar';
 const linksLeftSidebarIcon = [
   { icon: IconHome2, label: 'Inicio', route: '/home' },
   { icon: IconCertificate, label: 'Cursos', route: '/home/content/courses' },
-  { icon: IconSettings, label: 'Settings', route: '/home/pages/settings' },
+  { icon: IconSettings, label: 'Administrador', route: '/home/pages/admin' },
 ];
 
 export function DoubleNavbar({ onToggle, setAside }: { onToggle: () => void, setAside: Dispatch<SetStateAction<boolean>> }) {
@@ -43,10 +43,7 @@ export function DoubleNavbar({ onToggle, setAside }: { onToggle: () => void, set
     }
     else {
       router.push('/home')
-    }
-    if (selectSidebar == "none") {
-      setAside(false)
-    }
+    }    
   }, [currentsession])
 
   useEffect(() => {
@@ -73,13 +70,13 @@ export function DoubleNavbar({ onToggle, setAside }: { onToggle: () => void, set
             dispatch(reduxSetRightSidebar('none'))
             switch (link.label) {
               case 'Incio':
-                dispatch(reduxSetLeftSidebarLink({ name: "Inicio", links: [] }))
+                dispatch(reduxSetLeftSidebarLink({ name: "Inicio", links: [] }))                
                 break;
               case 'Cursos':
                 dispatch(reduxSetLeftSidebarLink({ name: "Cursos", links: [] }))
                 break;
-              case 'Settings':
-                dispatch(reduxSetLeftSidebarLink({ name: "Settings", links: [] }))
+              case 'Administrador':
+                dispatch(reduxSetLeftSidebarLink({ name: "Administrador", links: ["Grupos","Usuarios"] }))
                 break;
             }
             setActive(link.label)
@@ -109,7 +106,7 @@ export function DoubleNavbar({ onToggle, setAside }: { onToggle: () => void, set
         setActiveLink(link);
       }}
       key={link}
-      style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+      >
       {link}
     </Link>
   ));
@@ -118,20 +115,21 @@ export function DoubleNavbar({ onToggle, setAside }: { onToggle: () => void, set
   useEffect(() => {
     if (linksLeftSidebar.name.length > 0) {
       setActiveLink(linksLeftSidebar.links[0]);
-    }
+    } 
   }, [linksLeftSidebar]);
 
   return (
     <nav className={classes.navbar} >
       <Center maw={400} h={40} className={classes.title}>
-        <Text
+      <Text fw={500} size="xl">{activeIcon}</Text>
+        {/* <Text
           size="xl"
           fw={900}
           variant="gradient"
           gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
         >
           {activeIcon}
-        </Text>
+        </Text> */}
       </Center>
       <div className={classes.footer}>
         <UnstyledButton className={classes.user}
@@ -139,8 +137,10 @@ export function DoubleNavbar({ onToggle, setAside }: { onToggle: () => void, set
             onToggle()
             router.push('/home/pages/profile')
           }}
+          
+          style={{borderBottom:'1px solid', borderColor:'var(--mantine-color-gray-2)', borderWidth:'2px'} } mb={2}
         >
-          <UserButton
+          <UserButton 
             name={user ? user.user_metadata.name : ""}
             email={user ? user.email : ""}
             avatar={user ? user.user_metadata.avatar_url : ""} />

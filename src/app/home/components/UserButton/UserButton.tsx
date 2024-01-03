@@ -18,7 +18,7 @@ export function UserButton({ name, email, avatar }: Props) {
     //     router.push('/home/pages/profile')
     //   }}
     // >
-      <Group>
+      <Group >
         <Avatar
           src={avatar}
           radius="xl"

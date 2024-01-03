@@ -1,5 +1,5 @@
 'use client'
-import { AppShell, Burger, Center, Group, Text } from "@mantine/core";
+import { AppShell, Burger, Center, Flex, Group, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { ActionToggle } from "./components/ActionToggle/ActionToggle";
 import { DoubleNavbar } from "./components/DoubleNavbar/DoubleNavbar/DoubleNavbar";
@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import { store } from "../store";
 import Logo from "./components/Logo/Logo";
 import { useState } from "react";
+
 
 export default function HomeLayout({
     children,
@@ -92,9 +93,16 @@ export default function HomeLayout({
                         {children}
                     </AppShell.Main>
                     <AppShell.Footer >
-                        <Center>
-                            <Text size="xs">V1.0</Text>
-                        </Center>
+                        <Flex
+                            mih={40}                           
+                            gap="md"
+                            justify="center"
+                            align="center"
+                            direction="row"
+                            wrap="wrap"
+                        >
+                            <Text size="xs">&copy; 2024 JFVG V1.0</Text>
+                        </Flex>
                     </AppShell.Footer>
                 </AppShell>
             )}

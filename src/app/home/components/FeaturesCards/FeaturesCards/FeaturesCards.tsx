@@ -6,7 +6,7 @@ import {
   SimpleGrid,
   Container,
 } from '@mantine/core';
-import classes from './FeaturesCards.module.css';
+
 import { ArticleCard, typeArticleCard } from '../../ArticleCard/ArticleCard/ArticleCard';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '@/types/supabase/supabase';
@@ -14,6 +14,8 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
 import { NavigationProgress, nprogress } from '@mantine/nprogress';
+import { notifications } from '@mantine/notifications';
+import classes from './FeaturesCards.module.css';
 
 export function FeaturesCards() {
 
@@ -59,8 +61,25 @@ export function FeaturesCards() {
               nprogress.complete()
             }
           }
+          else {
+            notifications.show({
+              color: 'yellow',
+              title: 'Información',
+              message: "No hay cursos asignados",
+              autoClose: 5000,
+              classNames: classes,
+            })
+            nprogress.complete()
+          }
         } catch (error) {
-
+          notifications.show({
+            color: 'red',
+            title: 'Error',
+            message: "No hay cursos asignados",
+            autoClose: 2000,
+            classNames: classes,
+          })
+          nprogress.complete()
         }
       }
     }
@@ -90,7 +109,7 @@ export function FeaturesCards() {
           </Badge>
         </Group>
 
-        <Title order={2} className={classes.title} ta="center" mt="sm">
+        <Title order={2} className={classes.titlePage} ta="center" mt="sm">
           Cursos Disponibles
         </Title>
 

@@ -1,5 +1,5 @@
 module.exports = {
-    plugins: {
+    plugins: {      
       'postcss-preset-mantine': {},
       'postcss-simple-vars': {
         variables: {
